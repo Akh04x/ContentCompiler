@@ -1,0 +1,230 @@
+# Content Decision Contract v1.0
+
+## Purpose
+
+The ContentCompiler framework explicitly does not generate content directly. It produces Content Decisions. Content generation is merely a downstream consequence of those decisions.
+
+The fundamental objective of the compilation architecture is to transform verified knowledge into strategic, actionable conclusions. Those conclusions subsequently constrain and guide all creative execution. Therefore, a Decision—not a script, prompt, or asset—is the primary output of the reasoning process.
+
+## Core Reasoning Model
+
+The official conceptual model of ContentCompiler dictates the following strict flow of execution:
+
+**Knowledge** → **Reasoning** → **Decision** → **Target** → **Compilation** → **Output** → **Delivery** → **Evidence**
+
+- **Knowledge:** Provides verified structural context.
+- **Reasoning:** Evaluates context against constraints and objectives.
+- **Decision:** Represents the formalized strategic conclusion.
+- **Target:** Determines what should be produced.
+- **Compilation:** Assembles components into structures.
+- **Output:** Defines the structural schema.
+- **Delivery:** Materializes the final asset.
+- **Evidence:** Validates the outcome.
+
+The architecture mandates that Decisions are the primary, authoritative product of the reasoning architecture, fundamentally separated from Output schemas or Delivery execution.
+
+## Definition
+
+A **Content Decision** is a verified strategic conclusion that formally dictates and influences future content behavior.
+
+A Decision is exclusively a conclusion. It is explicitly never:
+- Raw knowledge
+- An assumption
+- A generated script
+- A creative idea
+- A final output
+
+## Characteristics
+
+Every valid Content Decision must satisfy the following immutable characteristics:
+
+- **Goal Driven:** The decision must traceably support a defined business objective.
+- **Evidence Supported:** The decision must derive from verified knowledge rather than assumptions.
+- **Traceable:** The lineage of the decision must be verifiable back to foundational knowledge sources.
+- **Explainable:** The rationale supporting the decision must be universally legible to human operators and LLMs.
+- **Human Reviewable:** The conclusion must be structured clearly enough to undergo strict human validation.
+- **Platform Independent:** The core strategy must not rely upon the algorithmic nuances of a specific distribution channel.
+- **Implementation Independent:** The decision must remain agnostic of the specific LLM or software executing the generation.
+- **Context Aware:** The decision must respect the constraints and physical realities of the operating environment.
+- **Consistent:** The decision must align with the established Brand Identity and Voice.
+- **Non-Contradictory:** The decision must not conflict with approved, active Content Decisions of equal or higher priority.
+- **Long-term Reusable:** The decision must establish a pattern or constraint capable of utilization across multiple execution cycles.
+
+## Decision Hierarchy
+
+A Decision is not a flat entity. Decisions operate within a strict architectural hierarchy. Higher levels unconditionally constrain lower levels. Lower-level decisions must never contradict the directives established by higher levels.
+
+The conceptual levels are defined as follows:
+
+- **Strategic Decisions:** Long-term determinations that govern the entire content ecosystem. They are rarely altered. Responsibilities include Brand Direction, Primary Audience definition, Business Goals, and Core Positioning.
+- **Tactical Decisions:** Campaign-level determinations that dictate medium-term execution. They evolve over weeks or months. Responsibilities include Content Mix, Campaign Themes, Distribution Focus, and Primary Offers.
+- **Creative Decisions:** Execution planning determinations that apply to one or more specific content assets. Responsibilities include Hooks, Story Structures, Creative Angles, Visual Direction, and Calls-to-Action (CTAs).
+- **Execution Decisions:** Production-level determinations that apply strictly during the physical creation phase. Responsibilities include Talent selection, Location, Camera Style, Editing Style, and Publishing Configuration.
+
+## Decision Categories
+
+Decisions are classified by the structural domain they govern. The official categories dictate specific reasoning responsibilities:
+
+- **Audience Decisions:** Dictate target demographics and prioritized psychological triggers.
+- **Goal Decisions:** Establish measurable outcomes required from a strategic cycle.
+- **Market Decisions:** Dictate competitive maneuvering against industry trends.
+- **Brand Decisions:** Enforce boundaries regarding voice, tone, vocabulary, and visual identity.
+- **Messaging Decisions:** Finalize core narratives, themes, and value propositions.
+- **Positioning Decisions:** Establish perception constraints relative to alternatives.
+- **Offer Decisions:** Define active products, services, or calls-to-action.
+- **Content Decisions:** Dictate overarching formats, pillars, and historical benchmarks.
+- **Creative Decisions:** Provide rigid direction on angles, hooks, and narrative structures.
+- **Production Decisions:** Mandate operational realities of physical production.
+- **Distribution Decisions:** Specify platforms, cadences, and algorithmic targets.
+- **Measurement Decisions:** Determine key performance indicators required for evaluation.
+- **Optimization Decisions:** Define strategic pivots required based on historical performance.
+- **Knowledge Decisions:** Conclude whether specific inferences warrant promotion to verified facts.
+- **Constraint Decisions:** Establish strict legal, budgetary, or operational boundaries.
+
+## Decision Stability
+
+Decisions possess an inherent Stability rating, representing their expected lifespan within the system. 
+
+Strategic Decisions maintain High Stability, often remaining constant for years. Creative and Execution Decisions maintain Low Stability, fluctuating weekly or daily based on immediate feedback. 
+
+Stability must be evaluated during reasoning. High-stability decisions act as the foundational anchors of the system; altering them triggers a cascading invalidation of all dependent lower-stability decisions.
+
+## Decision Sources
+
+Decisions emerge from the synthesis of multiple data points; they must never originate from a single, isolated fact. Authorized sources driving a decision include:
+
+- Verified Knowledge
+- Evidence
+- Analytics
+- Market Research
+- Human Expertise
+- Business Objectives
+- Operating Context
+- Historical Performance
+- Customer Feedback
+- CRM Data
+- Competitor Analysis
+
+## Decision Graph
+
+Decisions do not exist in isolation. The architecture dictates that Content Decisions form a connected graph. The reasoning architecture operates over the relationships and dependencies between decisions rather than treating them as discrete objects.
+
+Every Decision may depend upon or constrain other Decisions. The conceptual graph dictates dependencies such as:
+
+- Goals influence Strategy.
+- Strategy influences Audience.
+- Audience influences Messaging.
+- Messaging influences Creative.
+- Creative influences Production.
+- Production influences Distribution.
+- Distribution produces Results.
+- Results influence future Decisions.
+
+## Decision Priority & Conflicts
+
+Conflicts between strategic objectives are expected within complex systems (e.g., Sales vs. Brand awareness, Execution speed vs. Production quality).
+
+The reasoning architecture exposes and resolves these contradictions through the architectural concept of **Decision Priority**. Different decisions carry varying degrees of authority. Conflicts are resolved systemically via priority weighting rather than randomness or arbitrary selection.
+
+Conceptual priority dictates that higher-order imperatives (e.g., Safety, Legal boundaries, Business Goals) systematically override lower-order imperatives (e.g., Creative angles, Execution speed).
+
+## Decision Lifecycle
+
+Decisions evolve over time through a strict conceptual lifecycle that incorporates systemic learning and validation:
+
+- **Candidate:** A potential strategic conclusion synthesized by the reasoning architecture.
+- **Reasoned:** The candidate has been formally justified against verified knowledge.
+- **Pending Review:** The reasoned candidate awaits mandatory human validation.
+- **Approved:** The decision is authorized and locked into the strategic graph.
+- **Applied:** The decision actively guides and constrains creative execution.
+- **Observed:** The downstream outcomes produced by the applied decision are measured.
+- **Validated:** The decision has repeatedly demonstrated positive, measurable outcomes.
+- **Reusable:** The validated decision is abstracted into an organizational pattern to guide future reasoning.
+- **Deprecated:** The decision is permanently retired as obsolete or ineffective.
+
+## Decision Reuse
+
+Validated decisions may be promoted to reusable reasoning patterns. These patterns function as structural templates that govern future compilation cycles. Reusable decisions maintain systemic consistency across disparate campaigns and reduce future computational and cognitive reasoning effort.
+
+Crucially, reuse never replaces reasoning. Reuse strictly accelerates reasoning by providing validated, pre-approved constraints.
+
+## Decision Quality
+
+A high-quality Content Decision fundamentally optimizes the execution pipeline. It is defined by the following benchmarks:
+
+- It is explicitly supported by verified evidence.
+- It is perfectly aligned with primary business goals.
+- It is strictly consistent with brand guidelines.
+- It complies with the operating context and resource constraints.
+- It is supported by historical performance metrics.
+- It produces measurable, observable outcomes.
+- It is highly reusable across multiple execution cycles.
+- It is immediately explainable without requiring supplementary context.
+
+## Decision Boundaries
+
+To preserve architectural integrity, it is crucial to delineate what a Content Decision is NOT. 
+
+A Decision is explicitly **NOT**:
+- Knowledge
+- Evidence
+- A Prompt
+- A Campaign
+- A generated Script
+- A Content Calendar
+- A Thumbnail
+- A Caption
+- A Video Package
+- A media Asset
+- Execution
+
+A Content Decision exists entirely upstream; it must be finalized prior to all forms of execution.
+
+## Relationship with the Content Profile
+
+The architecture mandates strict separation of concerns between knowledge and reasoning:
+
+- The **Content Profile** supplies verified context. It functions as the database of truth.
+- The **Decision Layer** transforms that context into strategic conclusions. 
+
+The Content Profile never contains decisions. Conversely, the Decision Contract never stores raw knowledge. Their responsibilities remain absolutely isolated.
+
+## Relationship with Future Contracts
+
+To maintain modularity, the mechanics governing decisions will be managed by separate interfaces. This contract reserves namespace for:
+
+- Target Contract (Name TBD)
+- Compilation Model
+- Output Model
+- Delivery Contract (Name TBD)
+- Evidence Loop Contract
+
+## Architectural Principles
+
+The Content Decision Contract is governed by the following immutable laws:
+
+- **Knowledge Before Decisions:** A decision cannot be synthesized without verified foundational knowledge.
+- **Decisions Before Outputs:** Creative execution is strictly forbidden until strategic decisions are locked.
+- **Evidence Before Assumptions:** Conclusions must rely on traceably verified data.
+- **Goals Before Creativity:** All creative choices must serve a predetermined objective.
+- **Human Authority:** Only human operators possess the authority to approve a decision for execution.
+- **Platform Independence:** Strategic conclusions must remain isolated from distribution algorithms.
+- **LLM Independence:** The definition of a decision must remain universally comprehensible to any reasoning model.
+- **Traceability:** Every decision must map logically back to its source evidence.
+- **Consistency:** New decisions must not violate established decisions of equal or higher priority.
+- **Reusability:** Decisions must function as scalable templates for future reasoning.
+
+## Out of Scope
+
+This Contract formally defines the structure and characteristics of a Content Decision. It intentionally omits specifications for:
+
+- Knowledge Discovery workflows
+- Prompt Engineering methodologies
+- Compilation Algorithms
+- Output Generation mechanics
+- Video Packages
+- Script drafting
+- Campaign Planning
+- Publishing routines
+- Analytics Dashboards
+- Software implementation details
