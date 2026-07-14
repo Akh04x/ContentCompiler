@@ -63,8 +63,8 @@ Reasoning relies strictly upon structured inputs. The conceptual inputs that gov
 
 Reasoning synthesizes inputs exclusively into conceptual, strategic outputs. The authoritative outputs of reasoning include:
 
-- **Strategic Decisions:** The formal conclusions that dictate future content execution.
-- **Justification:** Every Strategic Decision must be accompanied by explicit justification detailing why the decision exists, which evidence supports it, which goals it serves, and which constraints influenced it. Reasoning never produces unexplained conclusions.
+- **Candidate Conclusions:** Proposed strategic directions and alternatives awaiting formal approval. Reasoning explicitly never produces finalized Strategic Decisions.
+- **Justification:** Every Candidate Conclusion must be accompanied by explicit justification detailing why the conclusion exists, which evidence supports it, which goals it serves, and which constraints influenced it. Reasoning never produces unexplained conclusions.
 - **Decision Relationships:** The mapped dependencies and constraints between conclusions.
 - **Decision Priorities:** The hierarchical weighting of competing objectives.
 - **Trade-offs and Conflicts:** Explicit declarations of mutually exclusive constraints.
@@ -192,10 +192,10 @@ To preserve modularity, the conceptual boundaries between reasoning and the broa
 
 - **Content Profile Contract:** Supplies the verified, structured context required for reasoning.
 - **Content Decision Contract:** Captures and formalizes the strategic conclusions produced by reasoning.
-- **Target Contract (Name TBD):** Determines what should be produced.
+- **Target Contract:** Determines what should be produced.
 - **Compilation Model:** Assembles components into structures.
 - **Output Model:** Validates Output Structures against schemas.
-- **Delivery Contract (Name TBD):** Hands off packages for generation.
+- **Delivery Contract:** Hands off packages for generation.
 - **Evidence Loop Contract:** Feeds validated performance observations back into the system to refine future reasoning.
 
 ## Architectural Guarantees

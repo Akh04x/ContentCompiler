@@ -102,7 +102,7 @@ The objective is to eliminate ambiguity, prevent synonym drift, and create a sha
 **Definition:** The entire ContentCompiler methodology, encompassing the principles, structures, and processes defined in the project.  
 **Purpose:** To encapsulate the project as a cohesive system rather than a loose collection of files.  
 **Allowed Synonyms:** None.  
-**Forbidden Terms:** App, Software, System, Engine.  
+**Forbidden Terms:** App, Software, System, Engine (Applies to architectural components, not implementation details like Prompt Engineering).  
 **Notes:** Refers to the conceptual methodology, not code.  
 
 ### Official Name: Review

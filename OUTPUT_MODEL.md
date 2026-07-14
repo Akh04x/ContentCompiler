@@ -116,10 +116,10 @@ The Output Model operates in conjunction with established framework specificatio
 - **Content Profile Contract:** Provides verified knowledge.
 - **Reasoning Contract:** Produces justified conclusions.
 - **Content Decision Contract:** Captures strategic decisions.
-- **Target Contract (Name TBD):** Determines what should be produced.
+- **Target Contract:** Determines what should be produced.
 - **Compilation Model:** Assembles Components into Output Structures.
 - **Output Model:** Validates Output Structures against schemas to produce Content Packages.
-- **Delivery Contract (Name TBD):** Hands off Content Packages for physical generation.
+- **Delivery Contract:** Hands off Content Packages for physical generation.
 - **Evidence Loop Contract:** Captures execution results and improves future Outputs.
 
 ## Architectural Guarantees

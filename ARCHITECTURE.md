@@ -23,6 +23,10 @@ The systemic flow of the architecture operates as a continuous, closed loop. The
 ↓
 **Reasoning Layer**
 ↓
+**Candidate Conclusion** (Entity)
+↓
+**Decision Layer**
+↓
 **Decision** (Entity)
 ↓
 **Target Layer**
@@ -65,7 +69,7 @@ A piece of information flowing structurally through the architecture. Entities e
 The active computational operation executing the logic defined by a contract to transform an Entity within a Layer.
 
 ### Application Examples
-- **Reasoning Layer** governed by **Reasoning Contract** produces **Strategic Decisions (Entity)**.
+- **Reasoning Layer** governed by **Reasoning Contract** produces **Candidate Conclusions (Entity)**.
 - **Compilation Layer** governed by **Compilation Model** produces **Output Structure (Entity)**.
 - **Output Layer** governed by **Output Model** finalizes **Content Package (Entity)**.
 
@@ -223,10 +227,10 @@ Current conceptual contracts include:
 - **Content Profile Contract:** Governs the Knowledge Layer.
 - **Reasoning Contract:** Governs the Reasoning Layer.
 - **Content Decision Contract:** Governs the Decision Layer.
-- **Target Contract (Name TBD):** Governs the Target Layer.
+- **Target Contract:** Governs the Target Layer.
 - **Compilation Model:** Governs the Compilation Layer.
 - **Output Model:** Governs the Output Layer.
-- **Delivery Contract (Name TBD):** Governs the Delivery Layer.
+- **Delivery Contract:** Governs the Delivery Layer.
 - **Evidence Loop Contract:** Governs the Evidence Layer.
 
 These contracts are the supreme specifications defining how layers communicate.

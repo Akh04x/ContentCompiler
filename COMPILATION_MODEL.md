@@ -65,16 +65,12 @@ Compilation strictly consumes pre-approved data. It evaluates constraints and Ta
 
 - **Target Intent:** The prescribed realization strategy (e.g. Series, Campaign) dictating what format is required.
 - **Approved Content Decisions:** The finalized strategic conclusions from the reasoning phase.
-- **Brand Constraints:** Visual, tonal, and archetypal boundaries.
-- **Operating Context:** The resource limitations of the physical production environment.
-- **Business Goals:** The foundational outcomes dictating measurement intent.
-- **Creative Constraints:** Narrative limitations and established hooks.
-- **Historical Learnings:** Prior patterns of execution success or failure.
-- **Production Constraints:** Time, talent, and budgetary restrictions.
+
+*(Note: Compilation does not directly consume raw constraints like Brand Constraints, Business Goals, Creative Constraints, or Operating Context. These constraints must be embedded within or referenced by the upstream Target Intent and Approved Content Decisions. Compilation performs assembly only, never reasoning.)*
 
 ## Outputs
 
-Compilation produces assembled **Output Structures**. An Output Structure is a temporary Entity that represents a collection of organized Components prior to final validation by the Output Layer.
+Compilation instantiates and assembles **Output Structures**. An Output Structure is an Entity that fulfills the requirements defined by the Target Intent and represents a collection of organized Components prior to final validation by the Output Layer.
 
 While format specifics vary, all Output Structures belong to the identical architectural family.
 
@@ -163,10 +159,10 @@ To preserve architectural modularity, the framework is divided into independent 
 - **Content Profile Contract:** Supplies verified knowledge.
 - **Reasoning Contract:** Evaluates knowledge to produce conclusions.
 - **Content Decision Contract:** Produces and formally captures approved strategic decisions.
-- **Target Contract (Name TBD):** Determines what should be produced.
+- **Target Contract:** Determines what should be produced.
 - **Compilation Model:** Organizes and composes reusable components into Output Structures.
 - **Output Model:** Validates Output Structures against structural schemas to produce Content Packages.
-- **Delivery Contract (Name TBD):** Hands off Content Packages for physical generation.
+- **Delivery Contract:** Hands off Content Packages for physical generation.
 - **Evidence Loop Contract:** Captures execution results to refine and improve future compilations.
 
 ## Architectural Guarantees

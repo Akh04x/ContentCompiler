@@ -1,0 +1,28 @@
+{
+  "name": "contentcompiler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Akh04x/ContentCompiler.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Akh04x/ContentCompiler/issues"
+  },
+  "homepage": "https://github.com/Akh04x/ContentCompiler#readme",
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^26.1.1",
+    "jest": "^30.4.2",
+    "ts-jest": "^29.4.11",
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.3"
+  }
+}

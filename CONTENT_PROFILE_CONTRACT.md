@@ -104,15 +104,15 @@ The Content Profile distinguishes between two orthogonal concepts. **Knowledge C
 
 ## Knowledge Classification
 
-Knowledge follows a strict conceptual flow. The hierarchy represents the evolution of information from raw data to actionable certainty:
+Knowledge is categorized strictly by its structural type (what it is). This classification is fully orthogonal to its verification state (where it is in the lifecycle).
 
-**Evidence** → **Observation** → **Fact** → **Inference** → **Verified Knowledge**
+The primary classifications of knowledge include, but are not limited to:
 
-- **Evidence:** The raw, foundational source material.
+- **Evidence:** The raw, foundational source material or data points.
 - **Observation:** A noted pattern or occurrence identified directly from evidence.
-- **Fact:** An indisputable data point explicitly derived from evidence and observation.
-- **Inference:** A logical deduction synthesized from established facts and observations.
-- **Verified Knowledge:** An inference, observation, or fact that has achieved explicit human approval and locked into the profile for strategic use.
+- **Fact:** An indisputable data point explicitly derived from evidence.
+- **Constraint:** A strict operational or brand boundary.
+- **Goal:** A desired measurable objective.
 
 ## Knowledge States
 
@@ -198,8 +198,8 @@ These concepts are governed by their respective independent specifications.
 To preserve modularity, future system behaviors will be defined in discrete Contracts, reserving namespace for:
 - Reasoning Contract
 - Content Decision Contract
-- Target Contract (Name TBD)
+- Target Contract
 - Compilation Model
 - Output Model
-- Delivery Contract (Name TBD)
+- Delivery Contract
 - Evidence Loop Contract

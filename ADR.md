@@ -55,9 +55,7 @@ Shifting the burden of output selection from the user to the framework ensures d
 LLMs often rely on assumptions or hallucinate information when generating content, compromising the integrity of the output.
 
 **Decision:**
-Only verified knowledge becomes part of the Content Profile. The knowledge lifecycle is strictly defined as:
-
-Collected → Inferred → Pending Verification → Verified → Deprecated.
+Only verified knowledge becomes part of the Content Profile. The knowledge lifecycle is strictly defined in the Profile Compilation Contract as a 7-state progression (Unknown → Observed → Collected → Inferred → Pending Verification → Verified → Deprecated).
 
 Inference is never automatically stored. Human approval is mandatory.
 

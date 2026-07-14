@@ -104,7 +104,7 @@ The framework is architecturally designed to ingest knowledge from diverse origi
 
 ## Knowledge States
 
-Every piece of information entering the system must traverse a strict, conceptual lifecycle. Information cannot bypass states to become verified truth.
+Every piece of information entering the system must traverse a strict, conceptual lifecycle. Information cannot bypass states to become verified truth. This lifecycle exclusively describes *where* knowledge is within the verification process, not *what* classification it is.
 
 The official lifecycle flows as follows:
 
