@@ -34,7 +34,7 @@ describe('PipelineApplicationService', () => {
       reason: jest.fn().mockResolvedValue(new Success([{ id: 'r1', statement: 'reasoned' }]))
     };
     mockDecisionLayer = {
-      decide: jest.fn().mockResolvedValue(new Success({ id: 'd1', nodes: [] }))
+      decide: jest.fn().mockResolvedValue(new Success({ id: { value: 'd1' }, nodes: [] }))
     };
     mockTargetLayer = {
       target: jest.fn().mockResolvedValue(new Success({ id: 't1', platform: 'test' }))
@@ -60,7 +60,10 @@ describe('PipelineApplicationService', () => {
       mockCompilationLayer,
       mockOutputLayer,
       mockDeliveryLayer,
-      mockEvidenceLayer
+      mockEvidenceLayer,
+      {} as any,
+      {} as any,
+      {} as any
     );
 
     context = {
@@ -69,23 +72,25 @@ describe('PipelineApplicationService', () => {
       logger: {
         info: jest.fn(),
         error: jest.fn(),
-        warn: jest.fn()
+        warn: jest.fn(),
+        debug: jest.fn()
       }
     };
   });
 
-  it('should successfully run the pipeline', async () => {
+  it('should yield at decision in run the pipeline', async () => {
     const result = await service.runPipeline(context, 'test-trigger');
-    expect(result.isSuccess).toBe(true);
+    expect(result.isSuccess).toBe(false);
+    expect(!result.isSuccess ? result.error.message : '').toContain('Pipeline yielded at Decision');
 
     expect(mockKnowledgeLayer.getKnowledge).toHaveBeenCalledWith(context, 'test-trigger');
     expect(mockReasoningLayer.reason).toHaveBeenCalled();
     expect(mockDecisionLayer.decide).toHaveBeenCalled();
-    expect(mockTargetLayer.target).toHaveBeenCalled();
-    expect(mockCompilationLayer.compile).toHaveBeenCalled();
-    expect(mockOutputLayer.package).toHaveBeenCalled();
-    expect(mockDeliveryLayer.deliver).toHaveBeenCalled();
-    expect(mockEvidenceLayer.evaluate).toHaveBeenCalled();
+    expect(mockTargetLayer.target).not.toHaveBeenCalled();
+    expect(mockCompilationLayer.compile).not.toHaveBeenCalled();
+    expect(mockOutputLayer.package).not.toHaveBeenCalled();
+    expect(mockDeliveryLayer.deliver).not.toHaveBeenCalled();
+    expect(mockEvidenceLayer.evaluate).not.toHaveBeenCalled();
   });
 
   it('should fail if knowledge layer fails', async () => {

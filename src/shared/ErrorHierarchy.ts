@@ -48,7 +48,7 @@ export class InternalRuntimeError extends ContentCompilerError {
 }
 
 export class HumanApprovalError extends ContentCompilerError {
-  constructor(message: string) {
+  constructor(message: string, public readonly requiredTargetId?: string) {
     super(message, 'HUMAN_APPROVAL_ERROR');
   }
 }

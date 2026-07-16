@@ -2,6 +2,7 @@ import { TargetIntent } from '../domain/TargetDomain';
 import { DecisionGraph } from '../domain/DecisionDomain';
 import { HumanApproval } from '../domain/GovernanceDomain';
 import { Result, Failure, Success } from '../shared/Result';
+import { HumanApprovalError } from '../shared/ErrorHierarchy';
 import { TargetConstraints, TargetFormat, TargetFormatEnum, GoalPriority, GoalPriorityEnum } from '../value_objects/TargetVOs';
 import { TargetService } from '../runtime/target/TargetService';
 import { ITargetLayer } from '../contracts/LayerContracts';
@@ -18,10 +19,7 @@ export class TargetPipeline implements ITargetLayer {
     if (!defineRes.isSuccess) return new Failure(defineRes.error);
 
     const intent = (defineRes as Success<TargetIntent>).value;
-    const approval = { targetId: intent.id, approvedBy: 'mock' } as any;
-    const constraints = new TargetConstraints('web', 10, 1, 'mock notes');
-    
-    return await this.service.executeApprovalFlow(intent, constraints, approval);
+    return new Failure(new HumanApprovalError("Target requires Human Approval", intent.id.value));
   }
 
   // Keep for test backward compat

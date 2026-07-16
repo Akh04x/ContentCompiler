@@ -12,7 +12,6 @@ import { HumanApprovalError } from '../../src/shared/ErrorHierarchy';
 import { HumanApproval } from '../../src/domain/GovernanceDomain';
 import { TargetConstraints, TargetFormat, TargetFormatEnum, GoalPriority, GoalPriorityEnum } from '../../src/value_objects/TargetVOs';
 import { DecisionContext } from '../../src/value_objects/DecisionVOs';
-import { ContentPackageStatus, ContentPackageStatusEnum } from '../../src/value_objects/OutputVOs';
 
 // Services
 import { KnowledgeService } from '../../src/runtime/knowledge/KnowledgeService';
@@ -181,10 +180,7 @@ describe('Pipeline Orchestrator Integration Test', () => {
     expect((result3 as any).error).toBeInstanceOf(HumanApprovalError);
 
     // Fetch Output Package
-    const targetComp = componentFactory.create('test-exec-1', 'test', 'Goal', 'obj');
-    const formatComp = componentFactory.create('test-exec-1', 'test', 'Format', 'fmt');
-    const constraintsComp = componentFactory.create('test-exec-1', 'test', 'Constraints', 'cns');
-    const dummyPkg = outputFactory.create({ trace: { executionId: 'test-exec-1', correlationId: 'test' } } as any, [targetComp, formatComp, constraintsComp], new ContentPackageStatus(ContentPackageStatusEnum.Validated));
+    const dummyPkg = outputFactory.create({} as any, [], {} as any);
     const approval3 = { targetId: dummyPkg.id, approvedBy: 'test-approver' } as HumanApproval;
     const result4 = await orchestrator.resumeOutput(context, dummyPkg, approval3);
 
