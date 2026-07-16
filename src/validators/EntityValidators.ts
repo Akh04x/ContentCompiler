@@ -35,3 +35,8 @@ export class HistoricalObservationValidator implements IValidator<HistoricalObse
 
 export class ConstraintValidator implements IValidator<Constraint> { validate(entity: Constraint) { return pass(); } }
 export class HumanApprovalValidator implements IValidator<HumanApproval> { validate(entity: HumanApproval) { return pass(); } }
+
+import { ApplicationConfig, ApplicationState } from '../domain/ApplicationDomain';
+
+export class ApplicationConfigValidator implements IValidator<ApplicationConfig> { validate(entity: ApplicationConfig) { return pass(); } }
+export class ApplicationStateValidator implements IValidator<ApplicationState> { validate(entity: ApplicationState) { return pass(); } }
