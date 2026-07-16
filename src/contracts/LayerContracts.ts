@@ -4,6 +4,7 @@ import { ContentProfile, Knowledge } from '../domain/KnowledgeDomain';
 import { CandidateConclusion, DecisionGraph } from '../domain/DecisionDomain';
 import { TargetIntent, OutputStructure } from '../domain/TargetDomain';
 import { ContentPackage } from '../domain/CompilationDomain';
+import { DeliveryArtifact } from '../domain/DeliveryDomain';
 import { Evidence } from '../domain/EvidenceDomain';
 
 export interface IKnowledgeLayer {
@@ -32,7 +33,7 @@ export interface IOutputLayer {
 }
 
 export interface IDeliveryLayer {
-  deliver(context: RuntimeContext, contentPackage: ContentPackage): Promise<Result<void>>;
+  deliver(context: RuntimeContext, contentPackage: ContentPackage): Promise<Result<DeliveryArtifact>>;
 }
 
 export interface IEvidenceLayer {

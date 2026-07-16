@@ -75,7 +75,7 @@ describe('Decision Pipeline Flow', () => {
     const draft = service.promoteCandidateConclusion(conclusion, ctx);
     const approval = makeApproval(draft.id, 'user-1');
 
-    const result = await pipeline.execute(draft, approval);
+    const result = await pipeline.executeFlow(draft, approval);
 
     expect(result.isSuccess).toBe(true);
     const decision = (result as Success<Decision>).value;
@@ -93,7 +93,7 @@ describe('Decision Pipeline Flow', () => {
 
     const draft = service.promoteCandidateConclusion(conclusion, ctx);
 
-    const result = await pipeline.execute(draft, null as any);
+    const result = await pipeline.executeFlow(draft, null as any);
 
     expect(result.isSuccess).toBe(false);
     expect((result as any).error.code).toBe('HUMAN_APPROVAL_ERROR');
@@ -114,7 +114,7 @@ describe('Decision Pipeline Flow', () => {
       1, 1, { value: 'wrong-id' } as any, 'user-1'
     );
 
-    const result = await pipeline.execute(draft, wrongApproval);
+    const result = await pipeline.executeFlow(draft, wrongApproval);
 
     expect(result.isSuccess).toBe(false);
     expect((result as any).error.code).toBe('HUMAN_APPROVAL_ERROR');
@@ -135,7 +135,7 @@ describe('Decision Pipeline Flow', () => {
     draft = (approved as Success<Decision>).value;
 
     // Pipeline should refuse a non-Draft input
-    const result = await pipeline.execute(draft, approval);
+    const result = await pipeline.executeFlow(draft, approval);
     expect(result.isSuccess).toBe(false);
     expect((result as any).error.code).toBe('VALIDATION_ERROR');
   });

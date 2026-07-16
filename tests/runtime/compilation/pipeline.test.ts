@@ -37,7 +37,7 @@ describe('Compilation pipeline', () => {
     const components = new ComponentRepo();
     const structures = new StructureRepo();
     const service = new CompilationService(new ComponentFactory(clock), new OutputStructureFactory(clock), components, structures, new ComponentValidator(), new OutputStructureValidator(), new TargetIntentValidator());
-    const result = await new CompilationPipeline(service).execute(approvedIntent());
+    const result = await new CompilationPipeline(service).executeFlow(approvedIntent());
     expect(result.isSuccess).toBe(true);
     expect((result as any).value.componentIds).toHaveLength(3);
     expect(components.saved.map(component => component.type)).toEqual(['Goal', 'Format', 'Constraints']);

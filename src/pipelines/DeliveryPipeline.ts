@@ -1,11 +1,14 @@
 import { ContentPackage } from '../domain/CompilationDomain';
 import { DeliveryArtifact } from '../domain/DeliveryDomain';
-import { Platform } from '../domain/EvidenceDomain';
-import { Result } from '../shared/Result';
-import { DeliveryService } from '../runtime/delivery/DeliveryService';
+import { Result, Failure } from '../shared/Result';
+import { IDeliveryLayer } from '../contracts/LayerContracts';
+import { RuntimeContext } from '../shared/Contexts';
 
 /** Thin transport boundary for external delivery handoff. */
-export class DeliveryPipeline {
-  constructor(private readonly service: DeliveryService) {}
-  async execute(contentPackage: ContentPackage, platform: Platform): Promise<Result<DeliveryArtifact>> { return this.service.deliver(contentPackage, platform); }
+export class DeliveryPipeline implements IDeliveryLayer {
+  constructor() {}
+
+  public async deliver(context: RuntimeContext, contentPackage: ContentPackage): Promise<Result<DeliveryArtifact>> {
+    return new Failure(new Error("Not implemented"));
+  }
 }

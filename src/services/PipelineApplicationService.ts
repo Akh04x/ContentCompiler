@@ -50,7 +50,7 @@ export class PipelineApplicationService implements IPipelineApplicationService {
     if (!deliveryRes.isSuccess) return new Failure(deliveryRes.error);
 
     // Assuming the delivery returned a receipt we pass to evidence.
-    const evidenceRes = await this.evidenceLayer.evaluate(context, "delivery_receipt_placeholder");
+    const evidenceRes = await this.evidenceLayer.evaluate(context, (deliveryRes as Success<any>).value);
     if (!evidenceRes.isSuccess) return new Failure(evidenceRes.error);
 
     return new Success(undefined);

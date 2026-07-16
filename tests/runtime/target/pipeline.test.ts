@@ -50,7 +50,7 @@ describe('Target pipeline', () => {
     const goal = service.createGoal('exec-1', 'Increase awareness', new GoalPriority(GoalPriorityEnum.High));
     const draft = service.define(approvedDecision(), [goal], new TargetFormat(TargetFormatEnum.Series));
     expect(draft.isSuccess).toBe(true);
-    const result = await new TargetPipeline(service).execute((draft as any).value, new TargetConstraints('YouTube', 3, 7, 'Short form'), approval((draft as any).value.id));
+    const result = await new TargetPipeline(service).executeFlow((draft as any).value, new TargetConstraints('YouTube', 3, 7, 'Short form'), approval((draft as any).value.id));
     expect(result.isSuccess).toBe(true);
     expect((result as any).value.status.status).toBe('Approved');
     expect(intents.saved).toHaveLength(1);

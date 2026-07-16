@@ -27,7 +27,7 @@ describe('Reasoning Pipeline', () => {
     
     // Simulate pipeline execution
     const mockKnowledge: any = { id: { value: 'k-1' } };
-    const result = await pipeline.execute([mockKnowledge], context);
+    const result = await pipeline.executeFlow([mockKnowledge], context);
 
     expect(result.isSuccess).toBe(true);
     const conclusion = (result as Success<any>).value;

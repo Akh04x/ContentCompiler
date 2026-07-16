@@ -37,7 +37,7 @@ function service(repos = { evidence: new EvidenceRepo(), signals: new SignalRepo
 describe('Evidence pipeline', () => {
   it('normalizes and persists signals and observations as immutable Evidence', async () => {
     const { repos, service: runtime } = service();
-    const result = await new EvidencePipeline(runtime).execute(artifact(), [{ metric: 'views', value: 42, observedAt: 1000 }], [{ event: 'Human reviewer confirmed publication', observedAt: 1000 }]);
+    const result = await new EvidencePipeline(runtime).executeFlow(artifact(), [{ metric: 'views', value: 42, observedAt: 1000 }], [{ event: 'Human reviewer confirmed publication', observedAt: 1000 }]);
     expect(result.isSuccess).toBe(true);
     expect((result as any).value.signals).toHaveLength(2);
     expect(repos.signals.saved).toHaveLength(1);
