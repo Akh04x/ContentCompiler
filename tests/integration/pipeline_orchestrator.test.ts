@@ -134,7 +134,7 @@ describe('Pipeline Orchestrator Integration Test', () => {
     );
 
     // 6. Run the pipeline
-    const mockLogger: ILogger = { info: jest.fn(), error: jest.fn(), warn: jest.fn(), debug: jest.fn() };
+    const mockLogger: ILogger = { info: jest.fn(), error: jest.fn(), warn: jest.fn()};
     const context: RuntimeContext = {
       executionId: 'test-exec-1',
       mode: 'mock',
