@@ -1,6 +1,10 @@
 import { ContentPackage } from '../../domain/CompilationDomain';
+import { ContentPackageId, OutputStructureId } from '../../value_objects/Identity';
+import { Result } from '../../shared/Result';
 
-export interface IContentPackageFactory { create(...args: any[]): ContentPackage; }
-export interface IContentPackageSerializer { serialize(entity: ContentPackage): string; deserialize(data: string): ContentPackage; }
-export interface IContentPackageRepository { save(entity: ContentPackage): Promise<void>; get(id: string): Promise<ContentPackage | null>; }
-export interface IContentPackageService { /* business operations */ }
+export interface IContentPackageRepository {
+  save(entity: ContentPackage): Promise<Result<void>>;
+  load(id: ContentPackageId): Promise<Result<ContentPackage>>;
+  exists(id: ContentPackageId): Promise<Result<boolean>>;
+  findByOutputStructure(id: OutputStructureId): Promise<Result<ContentPackage[]>>;
+}

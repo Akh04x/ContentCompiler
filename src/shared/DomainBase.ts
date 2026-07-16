@@ -4,9 +4,9 @@ export interface Identifier {
   readonly value: string;
 }
 
-export abstract class BaseEntity implements VersionedObject, Traceable {
+export abstract class BaseEntity<T extends Identifier = Identifier> implements VersionedObject, Traceable {
   protected constructor(
-    public readonly id: Identifier,
+    public readonly id: T,
     public readonly version: VersionMetadata,
     public readonly trace: TraceRecord,
     public readonly createdAt: number,

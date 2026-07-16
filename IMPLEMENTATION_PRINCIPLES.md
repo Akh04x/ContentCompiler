@@ -31,3 +31,6 @@ Implementation details may evolve, but the core interfaces representing the froz
 
 ## Semantic Versioning
 The software implementation will follow strict semantic versioning, aligning its major version milestones with the conceptual architecture phases.
+
+
+Application Service is the exclusive orchestration authority. Pipelines are transport coordinators only. Pipelines may invoke exactly one Application Service and must never coordinate validators, factories, repositories, or business operations directly.
