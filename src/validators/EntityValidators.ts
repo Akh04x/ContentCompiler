@@ -300,12 +300,12 @@ export class ContentPackageValidator implements IValidator<ContentPackage> {
     for (const expected of entity.structure?.componentIds || []) {
       if (!componentIds.has(expected.value)) errors.push(`ContentPackage is missing structure component ${expected.value}`);
     }
-    if (entity.status.status === ContentPackageStatusEnum.Validated || entity.status.status === ContentPackageStatusEnum.Approved) {
+    if (entity.status && (entity.status.status === ContentPackageStatusEnum.Validated || entity.status.status === ContentPackageStatusEnum.Approved)) {
       for (const type of ['Goal', 'Format', 'Constraints']) {
         if (!(entity.components || []).some(component => component.type === type)) errors.push(`ContentPackage is missing required ${type} component`);
       }
     }
-    if (entity.status.status === ContentPackageStatusEnum.Approved && (!entity.approvedBy || !entity.approvedAt)) {
+    if (entity.status && entity.status.status === ContentPackageStatusEnum.Approved && (!entity.approvedBy || !entity.approvedAt)) {
       errors.push('Approved ContentPackage must have human approval metadata');
     }
     return { isValid: errors.length === 0, errors };

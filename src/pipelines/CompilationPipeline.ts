@@ -9,7 +9,7 @@ export class CompilationPipeline implements ICompilationLayer {
   constructor(private readonly service: CompilationService) {}
 
   public async compile(context: RuntimeContext, targetIntent: TargetIntent): Promise<Result<OutputStructure>> {
-    return this.service.compile(targetIntent);
+    return this.executeFlow(targetIntent);
   }
 
   // Backwards compat for tests

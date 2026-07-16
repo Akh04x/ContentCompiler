@@ -1,13 +1,19 @@
-import { PlatformFactory, DeliveryArtifactFactory } from '../../../src/runtime/delivery/Factories';
-import { PlatformValidator } from '../../../src/validators/EntityValidators';
+import { DeliveryArtifactFactory } from '../../../src/runtime/delivery/Factories';
+import { DeliveryArtifactValidator } from '../../../src/validators/EntityValidators';
+import { ContentPackageId, PlatformId } from '../../../src/value_objects/Identity';
 
 const clock = { now: () => 1000 };
 
 describe('Delivery validators', () => {
-  it('requires a platform name', () => {
-    const platform = new PlatformFactory(clock).create('exec-1', '');
-    const result = new PlatformValidator().validate(platform);
-    expect(result.isValid).toBe(false);
-    expect(result.errors).toContain('Platform name cannot be empty');
+  it('validates a valid DeliveryArtifact', () => {
+    const factory = new DeliveryArtifactFactory(clock);
+    const artifact = factory.create(
+      new ContentPackageId('cp-1'), 
+      new PlatformId('plat-1'), 
+      'ext-ref-1', 
+      'exec-1'
+    );
+    const result = new DeliveryArtifactValidator().validate(artifact);
+    expect(result.isValid).toBe(true);
   });
 });

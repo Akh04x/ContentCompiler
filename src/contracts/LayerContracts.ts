@@ -37,5 +37,5 @@ export interface IDeliveryLayer {
 }
 
 export interface IEvidenceLayer {
-  evaluate(context: RuntimeContext, deliveryReceipt: any): Promise<Result<Evidence>>;
+  evaluate(context: RuntimeContext, deliveryReceipt: DeliveryArtifact): Promise<Result<Evidence>>;
 }
