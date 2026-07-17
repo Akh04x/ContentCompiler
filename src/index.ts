@@ -1,3 +1,4 @@
+import { ConfigLoader } from './providers/config/ProviderConfig';
 import { buildApplication } from './runtime/container';
 import { RuntimeContext } from './shared/Contexts';
 import { ILogger } from './shared/Infrastructure';
@@ -17,7 +18,9 @@ const runtimeContext: RuntimeContext = {
 async function main() {
   console.log("\n━━━━━━━━━━━━━━━━━━━━━━\n ContentCompiler Runtime\n━━━━━━━━━━━━━━━━━━━━━━\n");
   
-  const app = buildApplication();
+  const config = ConfigLoader.loadFromEnv();
+  console.log(`🔧 Configured Provider: ${config.provider} (Model: ${config.model})`);
+  const app = buildApplication(config);
   
   const trigger = "Create a TikTok video about commercial espresso machines.";
   console.log(`Starting pipeline for target: "${trigger}"\n`);

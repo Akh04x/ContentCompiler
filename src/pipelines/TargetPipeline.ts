@@ -23,8 +23,8 @@ export class TargetPipeline implements ITargetLayer {
 
     // Using dummy inputs for service as a mock proxy
     const mockedFlow = await this.service.define(
-        { id: { value: 'dummy' }, trace: { executionId: 'ctx' }, status: { status: 'APPROVED' } } as any,
-        [],
+        { id: { value: 'dummy' }, trace: { executionId: 'ctx' }, status: { status: 'Approved' } } as any,
+        [{ id: {value:'g-1'}, version: {currentVersion:'1'}, trace: {executionId:'1'}, createdAt: Date.now(), updatedAt: Date.now(), objective: 'mock goal', priority: 'High' } as any],
         new TargetFormat('SingleAsset' as any)
     );
     if (!mockedFlow.isSuccess) return new Failure(mockedFlow.error);
@@ -39,7 +39,7 @@ export class TargetPipeline implements ITargetLayer {
        Date.now(), Date.now(),
        [], // goals
        new TargetFormat('SingleAsset' as any),
-       new TargetIntentStatus('DEFINED' as any),
+       new TargetIntentStatus('Defined' as any),
        null, [], extracted.title, null, null
     );
 

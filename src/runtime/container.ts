@@ -142,85 +142,108 @@ const logger: ILogger = {
   error: (msg, err) => console.error(msg, err)
 };
 
-const providerFactory = new ProviderFactory(logger);
-const provider = providerFactory.createProvider({ provider: ProviderType.MOCK, model: 'mock', temperature: 0, maxTokens: 100, timeoutMs: 1000, maxRetries: 1 });
 
-const knowledgePipeline = new KnowledgePipeline(knowledgeService, provider);
-const reasoningPipeline = new ReasoningPipeline(reasoningService, provider);
-const decisionPipeline = new DecisionPipeline(decisionService, provider);
-const targetPipeline = new TargetPipeline(targetService, provider);
-const compilationPipeline = new CompilationPipeline(compilationService, provider);
-const outputPipeline = new OutputPipeline(outputService, provider);
-const deliveryPipeline = new DeliveryPipeline(deliveryService);
-const evidencePipeline = new EvidencePipeline(evidenceService, provider);
 
 
 // We proxy the layers to print the outputs exactly as required by the instruction
-class LoggingPipelineService implements IKnowledgeLayer, IReasoningLayer, IDecisionLayer, ITargetLayer, ICompilationLayer, IOutputLayer, IDeliveryLayer, IEvidenceLayer {
-  async getProfile(ctx: RuntimeContext, profileId: string) { return knowledgePipeline.getProfile(ctx, profileId); }
-  
-  async getKnowledge(ctx: RuntimeContext, triggerInput: string) {
-    const res = await knowledgePipeline.getKnowledge(ctx, triggerInput);
-    if (!res.isFailure) ctx.logger.info("Knowledge ✓");
-    return res;
+
+
+import { ProviderConfiguration } from '../providers/config/ProviderConfig';
+
+export function buildApplication(config: ProviderConfiguration): PipelineApplicationService {
+
+  const providerFactory = new ProviderFactory(logger);
+  const provider = providerFactory.createProvider(config);
+
+  const knowledgePipeline = new KnowledgePipeline(knowledgeService, provider);
+  const reasoningPipeline = new ReasoningPipeline(reasoningService, provider);
+  const decisionPipeline = new DecisionPipeline(decisionService, provider);
+  const targetPipeline = new TargetPipeline(targetService, provider);
+  const compilationPipeline = new CompilationPipeline(compilationService, provider);
+  const outputPipeline = new OutputPipeline(outputService, provider);
+  const deliveryPipeline = new DeliveryPipeline(deliveryService);
+  const evidencePipeline = new EvidencePipeline(evidenceService, provider);
+
+  class LoggingPipelineService implements IKnowledgeLayer, IReasoningLayer, IDecisionLayer, ITargetLayer, ICompilationLayer, IOutputLayer, IDeliveryLayer, IEvidenceLayer {
+    async getProfile(ctx: RuntimeContext, profileId: string) { return knowledgePipeline.getProfile(ctx, profileId); }
+    
+    async getKnowledge(ctx: RuntimeContext, triggerInput: string) {
+      const start = Date.now();
+      const res = await knowledgePipeline.getKnowledge(ctx, triggerInput);
+      const ms = Date.now() - start;
+      if (!res.isFailure) ctx.logger.info(`Knowledge (Provider: ${provider.providerName}) ✓ [${ms}ms] [Tokens: N/A]`);
+      return res;
+    }
+
+    async reason(ctx: RuntimeContext, knowledge: any) {
+      const start = Date.now();
+      const res = await reasoningPipeline.reason(ctx, knowledge);
+      const ms = Date.now() - start;
+      if (!res.isFailure) ctx.logger.info(`Reasoning ✓ [${ms}ms] [Tokens: N/A]`);
+      return res;
+    }
+
+    async decide(ctx: RuntimeContext, conclusions: any) {
+      const start = Date.now();
+      const res = await decisionPipeline.decide(ctx, conclusions);
+      const ms = Date.now() - start;
+      if (!res.isFailure) ctx.logger.info(`Decision ✓ [${ms}ms] [Tokens: N/A]`);
+      return res;
+    }
+
+    async target(ctx: RuntimeContext, graph: any) {
+      const start = Date.now();
+      const res = await targetPipeline.target(ctx, graph);
+      const ms = Date.now() - start;
+      if (!res.isFailure) ctx.logger.info(`Target ✓ [${ms}ms] [Tokens: N/A]`);
+      return res;
+    }
+
+    async compile(ctx: RuntimeContext, intent: any) {
+      const start = Date.now();
+      const res = await compilationPipeline.compile(ctx, intent);
+      const ms = Date.now() - start;
+      if (!res.isFailure) ctx.logger.info(`Compilation ✓ [${ms}ms] [Tokens: N/A]`);
+      return res;
+    }
+
+    async package(ctx: RuntimeContext, structure: any) {
+      const start = Date.now();
+      const res = await outputPipeline.package(ctx, structure);
+      const ms = Date.now() - start;
+      if (!res.isFailure) ctx.logger.info(`Output ✓ [${ms}ms] [Tokens: N/A]`);
+      return res;
+    }
+
+    async deliver(ctx: RuntimeContext, pkg: any) {
+      const start = Date.now();
+      const res = await deliveryPipeline.deliver(ctx, pkg);
+      const ms = Date.now() - start;
+      if (!res.isFailure) ctx.logger.info(`Delivery ✓ [${ms}ms] [Tokens: N/A]`);
+      return res;
+    }
+
+    async evaluate(ctx: RuntimeContext, artifact: any) {
+      const start = Date.now();
+      const res = await evidencePipeline.evaluate(ctx, artifact);
+      const ms = Date.now() - start;
+      if (!res.isFailure) ctx.logger.info(`Evidence ✓ [${ms}ms] [Tokens: N/A]`);
+      return res;
+    }
   }
 
-  async reason(ctx: RuntimeContext, knowledge: any) {
-    const res = await reasoningPipeline.reason(ctx, knowledge);
-    if (!res.isFailure) ctx.logger.info("Reasoning ✓");
-    return res;
-  }
+  const loggedLayers = new LoggingPipelineService();
 
-  async decide(ctx: RuntimeContext, conclusions: any) {
-    const res = await decisionPipeline.decide(ctx, conclusions);
-    if (!res.isFailure) ctx.logger.info("Decision ✓");
-    return res;
-  }
-
-  async target(ctx: RuntimeContext, graph: any) {
-    const res = await targetPipeline.target(ctx, graph);
-    if (!res.isFailure) ctx.logger.info("Target ✓");
-    return res;
-  }
-
-  async compile(ctx: RuntimeContext, intent: any) {
-    const res = await compilationPipeline.compile(ctx, intent);
-    if (!res.isFailure) ctx.logger.info("Compilation ✓");
-    return res;
-  }
-
-  async package(ctx: RuntimeContext, structure: any) {
-    const res = await outputPipeline.package(ctx, structure);
-    if (!res.isFailure) ctx.logger.info("Output ✓");
-    return res;
-  }
-
-  async deliver(ctx: RuntimeContext, pkg: any) {
-    const res = await deliveryPipeline.deliver(ctx, pkg);
-    if (!res.isFailure) ctx.logger.info("Delivery ✓");
-    return res;
-  }
-
-  async evaluate(ctx: RuntimeContext, artifact: any) {
-    const res = await evidencePipeline.evaluate(ctx, artifact);
-    if (!res.isFailure) ctx.logger.info("Evidence ✓");
-    return res;
-  }
+  return new PipelineApplicationService(
+    loggedLayers,
+    loggedLayers,
+    loggedLayers,
+    loggedLayers,
+    loggedLayers,
+    loggedLayers,
+    loggedLayers,
+    loggedLayers
+  );
 }
 
-const loggedLayers = new LoggingPipelineService();
 
-export const orchestrator = new PipelineApplicationService(
-  loggedLayers,
-  loggedLayers,
-  loggedLayers,
-  loggedLayers,
-  loggedLayers,
-  loggedLayers,
-  loggedLayers,
-  loggedLayers
-);
-
-export function buildApplication(): PipelineApplicationService {
-  return orchestrator;
-}

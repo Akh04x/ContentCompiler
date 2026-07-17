@@ -4,7 +4,28 @@ import { ProviderErrorMapper, ProviderParsingError } from '../errors/ProviderErr
 
 export class MockProvider implements ILLMProvider {
   private _nextTextResponse: string = 'Mock text response';
-  private _nextStructuredResponse: unknown = {};
+  private _nextStructuredResponse: unknown = {
+    fact: "Mocked fact from LLM Provider",
+    confidence: 0.95,
+    sourceType: "EXTERNAL_API",
+    sourceRef: "mock123",
+    
+    id: "conc-dummy-1",
+    justification: "Mocked justification via dummy mapping",
+    factsUsed: [],
+    
+    decisionId: "mock-decision-1",
+    status: "Approved",
+    conclusionsEmployed: [],
+
+    title: "Mocked TikTok Engine Output",
+    formats: ["SingleAsset"],
+    channels: ["tiktok"],
+    
+    content: "Compiled output string generated natively from provider format",
+    format: "json",
+    metadata: {}
+  };
   private _shouldFail: Error | null = null;
   public readonly providerName = 'Mock';
 
