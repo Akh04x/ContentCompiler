@@ -1,5 +1,6 @@
 import { PipelineApplicationService } from '../../src/services/PipelineApplicationService';
 import { KnowledgePipeline } from '../../src/pipelines/KnowledgePipeline';
+import { MockProvider } from '../../src/providers/adapters/MockProvider';
 import { ReasoningPipeline } from '../../src/pipelines/ReasoningPipeline';
 import { DecisionPipeline } from '../../src/pipelines/DecisionPipeline';
 import { TargetPipeline } from '../../src/pipelines/TargetPipeline';
@@ -112,14 +113,15 @@ describe('Pipeline Orchestrator Integration Test', () => {
     );
 
     // 4. Instantiate Pipelines
-    const knowledgePipeline = new KnowledgePipeline(knowledgeService);
-    const reasoningPipeline = new ReasoningPipeline(reasoningService);
-    const decisionPipeline = new DecisionPipeline(decisionService);
-    const targetPipeline = new TargetPipeline(targetService);
-    const compilationPipeline = new CompilationPipeline(compilationService);
-    const outputPipeline = new OutputPipeline(outputService);
+    const provider = new (require('../../src/providers/adapters/MockProvider').MockProvider)();
+    const knowledgePipeline = new KnowledgePipeline(knowledgeService, provider as any);
+    const reasoningPipeline = new ReasoningPipeline(reasoningService, provider as any);
+    const decisionPipeline = new DecisionPipeline(decisionService, provider as any);
+    const targetPipeline = new TargetPipeline(targetService, provider as any);
+    const compilationPipeline = new CompilationPipeline(compilationService, provider as any);
+    const outputPipeline = new OutputPipeline(outputService, provider as any);
     const deliveryPipeline = new DeliveryPipeline(deliveryService);
-    const evidencePipeline = new EvidencePipeline(evidenceService);
+    const evidencePipeline = new EvidencePipeline(evidenceService, provider as any);
 
     // 5. Wire into Orchestrator (PipelineApplicationService)
     const orchestrator = new PipelineApplicationService(

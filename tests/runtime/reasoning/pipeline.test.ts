@@ -21,7 +21,7 @@ describe('Reasoning Pipeline', () => {
     const repo = new MockConclusionRepo();
     const validator = new CandidateConclusionValidator();
     const service = new ReasoningService(factory, repo, validator);
-    const pipeline = new ReasoningPipeline(service);
+    const pipeline = new ReasoningPipeline(service, new (require('../../../src/providers/adapters/MockProvider').MockProvider)());
 
     const context = new ReasoningContext('exec-1', {});
     

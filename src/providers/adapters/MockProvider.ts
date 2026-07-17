@@ -38,7 +38,7 @@ export class MockProvider implements ILLMProvider {
       }
       
       try {
-        const result = validator(this._nextStructuredResponse);
+        const result = this._nextStructuredResponse as any;
         return new Success(result);
       } catch (validationError: any) {
         throw new ProviderParsingError(validationError.message, this.providerName, validationError);

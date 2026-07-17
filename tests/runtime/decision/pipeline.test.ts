@@ -62,7 +62,7 @@ function buildPipeline(): { pipeline: DecisionPipeline; service: DecisionService
     new DecisionValidator(), new DecisionGraphValidator(), new CandidateConclusionValidator(),
     clock
   );
-  return { pipeline: new DecisionPipeline(service), service, repo: new MockDecisionRepo(), graphRepo: new MockDecisionGraphRepo() };
+  return { pipeline: new DecisionPipeline(service, new (require('../../../src/providers/adapters/MockProvider').MockProvider)()), service, repo: new MockDecisionRepo(), graphRepo: new MockDecisionGraphRepo() };
 }
 
 describe('Decision Pipeline Flow', () => {

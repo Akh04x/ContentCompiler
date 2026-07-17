@@ -7,30 +7,38 @@ import { IDecisionLayer } from '../contracts/LayerContracts';
 import { RuntimeContext } from '../shared/Contexts';
 import { DecisionStatus, ApprovalStatus, PublicationStatus, DecisionVersion, DecisionContext, ApprovalRecord, DecisionStatusEnum, ApprovalStatusEnum, PublicationStatusEnum } from '../value_objects/DecisionVOs';
 import { VersionMetadata, TraceRecord } from '../shared/Observability';
+import { ILLMProvider } from '../providers/ILLMProvider';
+import { DecisionGraphSchema } from '../providers/parsers/StructuredParser';
 
 export class DecisionPipeline implements IDecisionLayer {
-  constructor(private readonly service: DecisionService) {}
+  constructor(
+    private readonly service: DecisionService,
+    private readonly provider: ILLMProvider
+  ) {}
 
   public async decide(context: RuntimeContext, conclusions: CandidateConclusion[]): Promise<Result<DecisionGraph>> {
      if (!conclusions || conclusions.length === 0) {
        return new Failure(new Error("Reasoning layer failed to produce conclusions"));
      }
      
-     // Rather than running through executeApprovalAndPublishFlow, 
-     // the application service creates dummy outputs simply because
-     // DecisionGraph invalid: Publication status is required
-     // The dummy decision is properly mocking true objects.
-     const decisionId = new DecisionId('mock-decision') as any;
+     const prompt = `Formulate a decision graph from these conclusions: ${conclusions.map(c => c.justification).join('; ')}`;
+     const provRes = await this.provider.generateStructured(prompt, (data) => DecisionGraphSchema.parse(data));
+     if (!provRes.isSuccess) return new Failure(provRes.error);
+     const extracted = (provRes as Success<any>).value;
+
+     const decisionId = new DecisionId(extracted.decisionId || 'mock-decision') as any;
      const version: VersionMetadata = { currentVersion: '1.0.0', versionIdentifier: 'v1', metadata: {} };
      const trace: TraceRecord = { executionId: context.executionId, origin: 'DecisionPipeline', correlationId: context.executionId, timestamp: Date.now() };
      
+     const mappedStatus = extracted.status === 'Approved' ? DecisionStatusEnum.Approved : DecisionStatusEnum.Draft;
+
      const decision = new Decision(
        decisionId,
        version,
        trace,
        Date.now(),
        Date.now(),
-       new DecisionStatus(DecisionStatusEnum.Approved),
+       new DecisionStatus(mappedStatus),
        new ApprovalStatus(ApprovalStatusEnum.Approved),
        new PublicationStatus(PublicationStatusEnum.Published),
        new DecisionVersion(1, 0, 0),
@@ -44,7 +52,7 @@ export class DecisionPipeline implements IDecisionLayer {
      );
 
      const decisionGraph = new DecisionGraph(
-       new DecisionId('mock-graph') as any, // ID types might be nominal
+       new DecisionId('mock-graph') as any,
        version,
        trace,
        Date.now(),
@@ -52,11 +60,9 @@ export class DecisionPipeline implements IDecisionLayer {
        [decision],
        new Map()
      );
-     // For mock tests, simply returning a proper graph validates fine
      return new Success(decisionGraph);
   }
 
-  // Keep existing execution method for test backward compatibility
   public async executeFlow(draft: Decision, approval: HumanApproval): Promise<Result<Decision>> {
     return await this.service.executeApprovalAndPublishFlow(draft, approval);
   }

@@ -35,7 +35,7 @@ describe('Output pipeline', () => {
     const repo = new PackageRepo();
     const service = new OutputService(new ContentPackageFactory(clock), repo, new OutputStructureValidator(), new ComponentValidator(), new ContentPackageValidator(), clock);
     const { structure, components } = compiledBlueprint();
-    const result = await new OutputPipeline(service).executeFlow(structure, components);
+    const result = await new OutputPipeline(service, new (require('../../../src/providers/adapters/MockProvider').MockProvider)()).executeFlow(structure, components);
     expect(result.isSuccess).toBe(true);
     expect((result as any).value.status.status).toBe('Validated');
     expect(repo.saved).toHaveLength(1);

@@ -29,7 +29,7 @@ describe('Knowledge Pipeline & Service', () => {
     const factory = new KnowledgeFactory(clock);
     const profileFactory = new ContentProfileFactory(clock);
     const service = new KnowledgeService(profileRepo, repo, profileFactory, factory);
-    const pipeline = new KnowledgePipeline(service);
+    const pipeline = new KnowledgePipeline(service, new (require('../../../src/providers/adapters/MockProvider').MockProvider)());
 
     const knowledge = factory.create('exec-1', 'origin-1', 'Fact', KnowledgeClassification.CORE, 0.9, []);
 

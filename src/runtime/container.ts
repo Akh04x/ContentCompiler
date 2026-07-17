@@ -35,7 +35,9 @@ import {
   PerformanceSignalValidator, HistoricalObservationValidator 
 } from '../validators/EntityValidators';
 
-import { IClock } from '../shared/Infrastructure';
+import { IClock, ILogger } from '../shared/Infrastructure';
+import { ProviderFactory } from '../providers/ProviderFactory';
+import { ProviderType } from '../providers/config/ProviderConfig';
 import { Success, Result } from '../shared/Result';
 import { RuntimeContext } from '../shared/Contexts';
 import { IKnowledgeLayer, IReasoningLayer, IDecisionLayer, ITargetLayer, ICompilationLayer, IOutputLayer, IDeliveryLayer, IEvidenceLayer } from '../contracts/LayerContracts';
@@ -133,14 +135,25 @@ const outputService = new OutputService(outputFactory, outputRepo, structureVali
 const deliveryService = new DeliveryService(deliveryFactory, deliveryRepo);
 const evidenceService = new EvidenceService(evidenceFactory, signalFactory, obsFactory, evidenceRepo, signalRepo, obsRepo, deliveryValidator, evidenceValidator, signalValidator, obsValidator);
 
-const knowledgePipeline = new KnowledgePipeline(knowledgeService);
-const reasoningPipeline = new ReasoningPipeline(reasoningService);
-const decisionPipeline = new DecisionPipeline(decisionService);
-const targetPipeline = new TargetPipeline(targetService);
-const compilationPipeline = new CompilationPipeline(compilationService);
-const outputPipeline = new OutputPipeline(outputService);
+
+const logger: ILogger = {
+  info: (msg) => console.log(msg),
+  warn: (msg) => console.warn(msg),
+  error: (msg, err) => console.error(msg, err)
+};
+
+const providerFactory = new ProviderFactory(logger);
+const provider = providerFactory.createProvider({ provider: ProviderType.MOCK, model: 'mock', temperature: 0, maxTokens: 100, timeoutMs: 1000, maxRetries: 1 });
+
+const knowledgePipeline = new KnowledgePipeline(knowledgeService, provider);
+const reasoningPipeline = new ReasoningPipeline(reasoningService, provider);
+const decisionPipeline = new DecisionPipeline(decisionService, provider);
+const targetPipeline = new TargetPipeline(targetService, provider);
+const compilationPipeline = new CompilationPipeline(compilationService, provider);
+const outputPipeline = new OutputPipeline(outputService, provider);
 const deliveryPipeline = new DeliveryPipeline(deliveryService);
-const evidencePipeline = new EvidencePipeline(evidenceService);
+const evidencePipeline = new EvidencePipeline(evidenceService, provider);
+
 
 // We proxy the layers to print the outputs exactly as required by the instruction
 class LoggingPipelineService implements IKnowledgeLayer, IReasoningLayer, IDecisionLayer, ITargetLayer, ICompilationLayer, IOutputLayer, IDeliveryLayer, IEvidenceLayer {
