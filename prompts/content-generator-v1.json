@@ -1,0 +1,6 @@
+{
+  "id": "content-generator",
+  "version": "1.0.0",
+  "requiredVariables": ["topic", "tone"],
+  "template": "Write a short paragraph about {{topic}} in a {{tone}} tone."
+}
