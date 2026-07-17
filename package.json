@@ -29,6 +29,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "zod": "^4.4.3"
   }
 }
