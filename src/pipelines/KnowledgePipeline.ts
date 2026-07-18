@@ -6,7 +6,7 @@ import { IKnowledgeLayer } from '../contracts/LayerContracts';
 import { KnowledgeId, ProfileId, BrandId, AudienceId } from '../value_objects/Identity';
 import { KnowledgeState, KnowledgeClassification, VerificationStatus, ConfidenceScore, Citation, EvidenceSource, SourceReference } from '../value_objects/KnowledgeVOs';
 import { ILLMProvider } from '../providers/ILLMProvider';
-import { KnowledgeFactSchema } from '../providers/parsers/StructuredParser';
+import { KnowledgeParser } from '../providers/parsers/KnowledgeParser';
 
 export class KnowledgePipeline implements IKnowledgeLayer {
   constructor(
@@ -38,7 +38,7 @@ export class KnowledgePipeline implements IKnowledgeLayer {
 
   public async getKnowledge(context: RuntimeContext, profileId: string): Promise<Result<Knowledge[]>> {
     const prompt = `Extract a primary fact about: ${profileId}`;
-    const result = await this.provider.generateStructured(prompt, (data) => KnowledgeFactSchema.parse(data));
+    const result = await this.provider.generateStructured(prompt, (data) => KnowledgeParser.parse(data));
     if (!result.isSuccess) return new Failure(result.error);
 
     const extracted = (result as Success<any>).value;

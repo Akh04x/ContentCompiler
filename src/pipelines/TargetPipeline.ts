@@ -5,7 +5,7 @@ import { TargetService } from '../runtime/target/TargetService';
 import { ITargetLayer } from '../contracts/LayerContracts';
 import { RuntimeContext } from '../shared/Contexts';
 import { ILLMProvider } from '../providers/ILLMProvider';
-import { TargetIntentSchema } from '../providers/parsers/StructuredParser';
+import { TargetParser } from '../providers/parsers/TargetParser';
 import { TargetIntentId as IntentId } from '../value_objects/Identity';
 import { TargetFormat, TargetIntentStatus } from '../value_objects/TargetVOs';
 
@@ -17,7 +17,7 @@ export class TargetPipeline implements ITargetLayer {
 
   public async target(context: RuntimeContext, decisionGraph: DecisionGraph): Promise<Result<TargetIntent>> {
     const prompt = `Formulate target intents for decision graph ID: ${decisionGraph.id.value}`;
-    const provRes = await this.provider.generateStructured(prompt, (data) => TargetIntentSchema.parse(data));
+    const provRes = await this.provider.generateStructured(prompt, (data) => TargetParser.parse(data));
     if (!provRes.isSuccess) return new Failure(provRes.error);
     const extracted = (provRes as Success<any>).value;
 

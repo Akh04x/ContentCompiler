@@ -6,7 +6,7 @@ import { ReasoningContext, ConfidenceScore, Justification } from '../value_objec
 import { IReasoningLayer } from '../contracts/LayerContracts';
 import { RuntimeContext } from '../shared/Contexts';
 import { ILLMProvider } from '../providers/ILLMProvider';
-import { CandidateConclusionSchema } from '../providers/parsers/StructuredParser';
+import { ReasoningParser } from '../providers/parsers/ReasoningParser';
 import { ConclusionId } from '../value_objects/Identity';
 
 export class ReasoningPipeline implements IReasoningLayer {
@@ -19,7 +19,7 @@ export class ReasoningPipeline implements IReasoningLayer {
     const facts = knowledgeList.map(k => k.fact).join(', ');
     const prompt = `Formulate a conclusion based on these facts: ${facts}`;
     
-    const provRes = await this.provider.generateStructured(prompt, (data) => CandidateConclusionSchema.parse(data));
+    const provRes = await this.provider.generateStructured(prompt, (data) => ReasoningParser.parse(data));
     if (!provRes.isSuccess) return new Failure(provRes.error);
 
     const extracted = (provRes as Success<any>).value;

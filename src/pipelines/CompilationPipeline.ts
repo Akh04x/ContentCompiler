@@ -5,7 +5,7 @@ import { ICompilationLayer } from '../contracts/LayerContracts';
 import { RuntimeContext } from '../shared/Contexts';
 import { OutputStructureId, ComponentId } from '../value_objects/Identity';
 import { ILLMProvider } from '../providers/ILLMProvider';
-import { CompilationStructureSchema } from '../providers/parsers/StructuredParser';
+import { CompilationParser } from '../providers/parsers/CompilationParser';
 
 export class CompilationPipeline implements ICompilationLayer {
   constructor(
@@ -15,7 +15,7 @@ export class CompilationPipeline implements ICompilationLayer {
 
   public async compile(context: RuntimeContext, targetIntent: TargetIntent): Promise<Result<OutputStructure>> {
     const prompt = `Compile into output structure for target: ${targetIntent.id.value}`;
-    const provRes = await this.provider.generateStructured(prompt, (data) => CompilationStructureSchema.parse(data));
+    const provRes = await this.provider.generateStructured(prompt, (data) => CompilationParser.parse(data));
     if (!provRes.isSuccess) return new Failure(provRes.error);
     const extracted = (provRes as Success<any>).value;
 

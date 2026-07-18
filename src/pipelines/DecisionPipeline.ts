@@ -8,7 +8,7 @@ import { RuntimeContext } from '../shared/Contexts';
 import { DecisionStatus, ApprovalStatus, PublicationStatus, DecisionVersion, DecisionContext, ApprovalRecord, DecisionStatusEnum, ApprovalStatusEnum, PublicationStatusEnum } from '../value_objects/DecisionVOs';
 import { VersionMetadata, TraceRecord } from '../shared/Observability';
 import { ILLMProvider } from '../providers/ILLMProvider';
-import { DecisionGraphSchema } from '../providers/parsers/StructuredParser';
+import { DecisionParser } from '../providers/parsers/DecisionParser';
 
 export class DecisionPipeline implements IDecisionLayer {
   constructor(
@@ -22,7 +22,7 @@ export class DecisionPipeline implements IDecisionLayer {
      }
      
      const prompt = `Formulate a decision graph from these conclusions: ${conclusions.map(c => c.justification).join('; ')}`;
-     const provRes = await this.provider.generateStructured(prompt, (data) => DecisionGraphSchema.parse(data));
+     const provRes = await this.provider.generateStructured(prompt, (data) => DecisionParser.parse(data));
      if (!provRes.isSuccess) return new Failure(provRes.error);
      const extracted = (provRes as Success<any>).value;
 
