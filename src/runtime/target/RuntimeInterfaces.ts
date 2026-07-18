@@ -1,12 +1,20 @@
-import { TargetIntent, OutputStructure, Goal } from '../../domain/TargetDomain';
+import { TargetIntent, Goal } from '../../domain/TargetDomain';
+import { TargetIntentId, GoalId, DecisionId } from '../../value_objects/Identity';
+import { Result } from '../../shared/Result';
 
-export interface ITargetIntentFactory { create(...args: any[]): TargetIntent; }
-export interface ITargetIntentSerializer { serialize(entity: TargetIntent): string; deserialize(data: string): TargetIntent; }
-export interface ITargetIntentRepository { save(entity: TargetIntent): Promise<void>; get(id: string): Promise<TargetIntent | null>; }
-export interface ITargetIntentService { /* business operations */ }
+export interface ITargetIntentRepository {
+  save(intent: TargetIntent): Promise<Result<void>>;
+  load(id: TargetIntentId): Promise<Result<TargetIntent>>;
+  exists(id: TargetIntentId): Promise<Result<boolean>>;
+  delete(id: TargetIntentId): Promise<Result<void>>;
+  findByExecutionId(executionId: string): Promise<Result<TargetIntent[]>>;
+  findByOriginatingDecision(decisionId: DecisionId): Promise<Result<TargetIntent[]>>;
+}
 
-export interface IOutputStructureFactory { create(...args: any[]): OutputStructure; }
-export interface IOutputStructureSerializer { serialize(entity: OutputStructure): string; deserialize(data: string): OutputStructure; }
-
-export interface IGoalFactory { create(...args: any[]): Goal; }
-export interface IGoalSerializer { serialize(entity: Goal): string; deserialize(data: string): Goal; }
+export interface IGoalRepository {
+  save(goal: Goal): Promise<Result<void>>;
+  load(id: GoalId): Promise<Result<Goal>>;
+  exists(id: GoalId): Promise<Result<boolean>>;
+  delete(id: GoalId): Promise<Result<void>>;
+  findByObjective(objective: string): Promise<Result<Goal[]>>;
+}

@@ -1,16 +1,32 @@
 import { ContentProfile, Knowledge, Brand, Audience } from '../../domain/KnowledgeDomain';
+import { ProfileId, KnowledgeId, BrandId, AudienceId } from '../../value_objects/Identity';
+import { Result } from '../../shared/Result';
 
-export interface IContentProfileFactory { create(...args: any[]): ContentProfile; }
-export interface IContentProfileSerializer { serialize(entity: ContentProfile): string; deserialize(data: string): ContentProfile; }
-export interface IContentProfileRepository { save(entity: ContentProfile): Promise<void>; get(id: string): Promise<ContentProfile | null>; }
-export interface IContentProfileService { /* business operations */ }
+export interface IContentProfileRepository {
+  save(profile: ContentProfile): Promise<Result<void>>;
+  load(id: ProfileId): Promise<Result<ContentProfile>>;
+  exists(id: ProfileId): Promise<Result<boolean>>;
+  delete(id: ProfileId): Promise<Result<void>>;
+}
 
-export interface IKnowledgeFactory { create(...args: any[]): Knowledge; }
-export interface IKnowledgeSerializer { serialize(entity: Knowledge): string; deserialize(data: string): Knowledge; }
-export interface IKnowledgeService { /* business operations */ }
+export interface IKnowledgeRepository {
+  save(knowledge: Knowledge): Promise<Result<void>>;
+  load(id: KnowledgeId): Promise<Result<Knowledge>>;
+  exists(id: KnowledgeId): Promise<Result<boolean>>;
+  delete(id: KnowledgeId): Promise<Result<void>>;
+  findByProfile(profileId: ProfileId): Promise<Result<Knowledge[]>>;
+}
 
-export interface IBrandFactory { create(...args: any[]): Brand; }
-export interface IBrandSerializer { serialize(entity: Brand): string; deserialize(data: string): Brand; }
+export interface IBrandRepository {
+  save(brand: Brand): Promise<Result<void>>;
+  load(id: BrandId): Promise<Result<Brand>>;
+  exists(id: BrandId): Promise<Result<boolean>>;
+  delete(id: BrandId): Promise<Result<void>>;
+}
 
-export interface IAudienceFactory { create(...args: any[]): Audience; }
-export interface IAudienceSerializer { serialize(entity: Audience): string; deserialize(data: string): Audience; }
+export interface IAudienceRepository {
+  save(audience: Audience): Promise<Result<void>>;
+  load(id: AudienceId): Promise<Result<Audience>>;
+  exists(id: AudienceId): Promise<Result<boolean>>;
+  delete(id: AudienceId): Promise<Result<void>>;
+}

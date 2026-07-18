@@ -1,17 +1,26 @@
 import { Decision, DecisionGraph } from '../../domain/DecisionDomain';
-import { HumanApproval, Constraint } from '../../domain/GovernanceDomain';
+import { DecisionId } from '../../value_objects/Identity';
+import { Result } from '../../shared/Result';
 
-export interface IDecisionFactory { create(...args: any[]): Decision; }
-export interface IDecisionSerializer { serialize(entity: Decision): string; deserialize(data: string): Decision; }
-export interface IDecisionService { /* business operations */ }
+export interface IDecisionRepository {
+  save(decision: Decision): Promise<Result<void>>;
+  load(id: DecisionId): Promise<Result<Decision>>;
+  exists(id: DecisionId): Promise<Result<boolean>>;
+  delete(id: DecisionId): Promise<Result<void>>;
+  findAll(): Promise<Result<Decision[]>>;
+  findByOriginatingConclusion(conclusionId: string): Promise<Result<Decision[]>>;
+  findByExecutionId(executionId: string): Promise<Result<Decision[]>>;
+}
 
-export interface IDecisionGraphFactory { create(...args: any[]): DecisionGraph; }
-export interface IDecisionGraphSerializer { serialize(entity: DecisionGraph): string; deserialize(data: string): DecisionGraph; }
-export interface IDecisionGraphRepository { save(entity: DecisionGraph): Promise<void>; get(id: string): Promise<DecisionGraph | null>; }
-export interface IDecisionGraphService { /* business operations */ }
+export interface IDecisionGraphRepository {
+  save(graph: DecisionGraph): Promise<Result<void>>;
+  load(id: DecisionId): Promise<Result<DecisionGraph>>;
+  exists(id: DecisionId): Promise<Result<boolean>>;
+  findByExecutionId(executionId: string): Promise<Result<DecisionGraph[]>>;
+}
 
-export interface IHumanApprovalFactory { create(...args: any[]): HumanApproval; }
-export interface IHumanApprovalSerializer { serialize(entity: HumanApproval): string; deserialize(data: string): HumanApproval; }
-
-export interface IConstraintFactory { create(...args: any[]): Constraint; }
-export interface IConstraintSerializer { serialize(entity: Constraint): string; deserialize(data: string): Constraint; }
+export interface IDecisionServiceRepository {
+  // A domain-specific repository coordination interface if required by the service
+  // to fetch related decisions based on origin or lineage
+  findByOriginatingConclusion(conclusionId: string): Promise<Result<Decision[]>>;
+}
