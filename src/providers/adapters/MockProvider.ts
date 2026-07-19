@@ -16,7 +16,7 @@ export class MockProvider implements ILLMProvider {
     
     decisionId: "mock-decision-1",
     status: "Approved",
-    conclusionsEmployed: [],
+    conclusionsEmployed: ["mock-conclusion-id"],
 
     title: "Mocked TikTok Engine Output",
     formats: ["SingleAsset"],

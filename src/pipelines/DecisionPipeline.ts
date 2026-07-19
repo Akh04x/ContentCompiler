@@ -28,11 +28,16 @@ export class DecisionPipeline implements IDecisionLayer {
      if (!provRes.isSuccess) return new Failure(provRes.error);
      const extracted = (provRes as Success<any>).value;
 
-     const decisionId = new DecisionId(extracted.decisionId || 'mock-decision') as any;
+     if (!extracted.decisionId || !extracted.conclusionsEmployed || extracted.conclusionsEmployed.length === 0) {
+       return new Failure(new Error("Provider failed to return valid decision data"));
+     }
+
+     const decisionId = new DecisionId(extracted.decisionId);
      const version: VersionMetadata = { currentVersion: '1.0.0', versionIdentifier: 'v1', metadata: {} };
      const trace: TraceRecord = { executionId: context.executionId, origin: 'DecisionPipeline', correlationId: context.executionId, timestamp: Date.now() };
      
      const mappedStatus = extracted.status === 'Approved' ? DecisionStatusEnum.Approved : DecisionStatusEnum.Draft;
+     const originatingConclusion = new ConclusionId(extracted.conclusionsEmployed[0]);
 
      const decision = new Decision(
        decisionId,
@@ -41,20 +46,20 @@ export class DecisionPipeline implements IDecisionLayer {
        Date.now(),
        Date.now(),
        new DecisionStatus(mappedStatus),
-       new ApprovalStatus(ApprovalStatusEnum.Approved),
-       new PublicationStatus(PublicationStatusEnum.Published),
+       new ApprovalStatus(ApprovalStatusEnum.Pending),
+       new PublicationStatus(PublicationStatusEnum.Unpublished),
        new DecisionVersion(1, 0, 0),
-       new DecisionContext('test context', {} as any),
-       new ConclusionId('dummy-conn-1') as any,
-       'mock-approver',
-       Date.now(),
-       Date.now(),
+       new DecisionContext(context.executionId, {} as any),
+       originatingConclusion,
+       null,
+       null,
+       null,
        '1.0.0',
        null
      );
 
      const decisionGraph = new DecisionGraph(
-       new DecisionId('mock-graph') as any,
+       new DecisionId(`graph-${extracted.decisionId}`),
        version,
        trace,
        Date.now(),

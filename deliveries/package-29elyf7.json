@@ -1,0 +1,129 @@
+{
+  "id": {
+    "value": "package-29elyf7"
+  },
+  "version": {
+    "currentVersion": "1.3.0",
+    "versionIdentifier": "v1.3",
+    "metadata": {}
+  },
+  "trace": {
+    "executionId": "test-exec-1",
+    "origin": "OutputService.package",
+    "correlationId": "test-exec-1",
+    "timestamp": 1784495837711
+  },
+  "createdAt": 1784495837711,
+  "updatedAt": 1784495837711,
+  "structure": {
+    "id": {
+      "value": "mock-os-1784495837711"
+    },
+    "version": {
+      "currentVersion": "1",
+      "versionIdentifier": "v1",
+      "metadata": {}
+    },
+    "trace": {
+      "executionId": "test-exec-1",
+      "origin": "comp",
+      "correlationId": "test-exec-1",
+      "timestamp": 1784495837711
+    },
+    "createdAt": 1784495837711,
+    "updatedAt": 1784495837711,
+    "targetIntentId": {
+      "value": "intent-1784495837711"
+    },
+    "componentIds": [
+      {
+        "value": "c-1"
+      },
+      {
+        "value": "c-2"
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": {
+        "value": "comp-goal"
+      },
+      "type": "Goal",
+      "content": "{}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784495837711,
+      "updatedAt": 1784495837711
+    },
+    {
+      "id": {
+        "value": "comp-fmt"
+      },
+      "type": "Format",
+      "content": "{}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784495837711,
+      "updatedAt": 1784495837711
+    },
+    {
+      "id": {
+        "value": "comp-con"
+      },
+      "type": "Constraints",
+      "content": "{}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784495837711,
+      "updatedAt": 1784495837711
+    },
+    {
+      "id": {
+        "value": "c-1"
+      },
+      "type": "Section",
+      "content": "{}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784495837711,
+      "updatedAt": 1784495837711
+    },
+    {
+      "id": {
+        "value": "c-2"
+      },
+      "type": "Section",
+      "content": "{}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784495837711,
+      "updatedAt": 1784495837711
+    }
+  ],
+  "status": {
+    "status": "Approved"
+  },
+  "approvedBy": "mock",
+  "approvedAt": 1784495837711
+}
