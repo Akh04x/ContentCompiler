@@ -36,12 +36,16 @@ export class ReasoningPipeline implements IReasoningLayer {
     // Override the mocked service return with the provider generated one mapping properly
     const candidateDb = (execRes as Success<CandidateConclusion>).value;
     
+    if (!extracted.justification) {
+      return new Failure(new Error("Reasoning provider failed to return a justification for the conclusion."));
+    }
+
     const realCandidate = new CandidateConclusion(
        new ConclusionId(extracted.id || candidateDb.id.value),
        candidateDb.version,
        candidateDb.trace,
        Date.now(), Date.now(),
-       [], [], [], new ConfidenceScore(extracted.confidence || 0.5), new Justification(extracted.justification || 'mock'), [], rContext, Date.now(), 'v1.0'
+       [], [], [], new ConfidenceScore(extracted.confidence || 0.5), new Justification(extracted.justification), [], rContext, Date.now(), 'v1.0'
     );
 
     return new Success([realCandidate]);

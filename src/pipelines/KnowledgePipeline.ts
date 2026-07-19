@@ -56,8 +56,8 @@ export class KnowledgePipeline implements IKnowledgeLayer {
         new ConfidenceScore(extracted.confidence),
         [
           new Citation(
-            new EvidenceSource('TELEMETRY', extracted.sourceType || 'mock_type'),
-            new SourceReference(extracted.sourceRef || 'mock_ref'),
+            new EvidenceSource('TELEMETRY', extracted.sourceType || 'unspecified'),
+            new SourceReference(extracted.sourceRef || 'unspecified'),
             'extracted from provider output'
           )
         ]
