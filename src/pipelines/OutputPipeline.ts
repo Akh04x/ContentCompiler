@@ -35,27 +35,15 @@ export class OutputPipeline implements IOutputLayer {
 
      const res = await this.service.validateOutput(outputStructure, components);
      if (!res.isSuccess) {
-       // create mapped success from provider signal
-       const mockPkg = new ContentPackage(
-         new ContentPackageId('mock-pkg-' + Date.now()),
-         { currentVersion: '1.0.0', versionIdentifier: 'v1', metadata: {} },
-         { executionId: context.executionId, origin: 'OutputPipeline', correlationId: context.executionId, timestamp: Date.now() },
-         Date.now(),
-         Date.now(),
-         outputStructure,
-         components,
-         new ContentPackageStatus(ContentPackageStatusEnum.Approved),
-         'mock-approver',
-         Date.now()
-       );
-       return new Success(mockPkg);
+       return new Failure(res.error);
      }
 
      const draft = (res as Success<ContentPackage>).value;
-     const approval = { targetId: draft.id, approvedBy: 'mock' } as any;
+     // Output approval is CONDITIONAL; this instance uses a system transition
+     const approval = { targetId: draft.id, approvedBy: 'system-auto-package' } as any;
      const appRes = this.service.approve(draft, approval);
      if (!appRes.isSuccess) {
-       return new Success(draft); 
+       return new Failure(appRes.error); 
      }
      return new Success((appRes as Success<ContentPackage>).value);
   }
