@@ -9,7 +9,6 @@ import { DecisionStatus, ApprovalStatus, PublicationStatus, DecisionVersion, Dec
 import { VersionMetadata, TraceRecord } from '../shared/Observability';
 import { ILLMProvider } from '../providers/ILLMProvider';
 import { DecisionGraphSchema } from '../providers/parsers/StructuredParser';
-import * as readline from 'readline/promises';
 import { stdin as processStdin, stdout as processStdout } from 'process';
 
 export class DecisionPipeline implements IDecisionLayer {
@@ -78,9 +77,15 @@ export class DecisionPipeline implements IDecisionLayer {
      });
      console.log('=============================================\n');
 
-     const rl = readline.createInterface({ input: processStdin, output: processStdout });
-     const answer = await rl.question('Approve? (y/n): ');
-     rl.close();
+     const answer = await new Promise<string>((resolve) => {
+       processStdout.write('Approve? (y/n): ');
+       const onData = (data: Buffer) => {
+         processStdin.removeListener('data', onData);
+         resolve(data.toString().trim());
+       };
+       processStdin.once('data', onData);
+       if (processStdin.isPaused()) processStdin.resume();
+     });
 
      if (answer.trim().toLowerCase() !== 'y') {
        return new Failure(new Error("Human approval rejected. Pipeline halted."));

@@ -1,12 +1,28 @@
 import { PipelineApplicationService } from '../../src/services/PipelineApplicationService';
 
-jest.mock('readline/promises', () => {
-  return {
-    createInterface: jest.fn().mockReturnValue({
-      question: jest.fn().mockResolvedValue('y'),
-      close: jest.fn()
-    })
+// Mock stdin to emit 'y' for each approval prompt (Decision + Target)
+const originalStdin = process.stdin;
+beforeAll(() => {
+  const { EventEmitter } = require('events');
+  const mockStdin = new EventEmitter();
+  mockStdin.isPaused = jest.fn().mockReturnValue(false);
+  mockStdin.resume = jest.fn();
+  mockStdin.setEncoding = jest.fn();
+  // Monkey-patch process.stdout.write to intercept prompts and auto-respond
+  const origWrite = process.stdout.write.bind(process.stdout);
+  (process.stdout as any).write = (chunk: any, encodingOrCb?: any, cb?: any) => {
+    const text = typeof chunk === 'string' ? chunk : '';
+    if (text.includes('Approve')) {
+      // Schedule a 'y' response on the next tick
+      process.nextTick(() => mockStdin.emit('data', Buffer.from('y\n')));
+    }
+    return origWrite(chunk, encodingOrCb, cb);
   };
+  Object.defineProperty(process, 'stdin', { value: mockStdin, writable: true });
+});
+
+afterAll(() => {
+  Object.defineProperty(process, 'stdin', { value: originalStdin, writable: true });
 });
 
 import { KnowledgePipeline } from '../../src/pipelines/KnowledgePipeline';

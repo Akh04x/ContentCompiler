@@ -114,8 +114,8 @@ const signalFactory = new PerformanceSignalFactory(clock);
 const obsFactory = new HistoricalObservationFactory(clock);
 
 const conclusionValidator = new CandidateConclusionValidator();
-const profileValidator = new ContentProfileValidator();
-const knowledgeValidator = new KnowledgeValidator();
+const profileValidator = new (require('../validators/EntityValidators').ContentProfileValidator)();
+const knowledgeValidator = new (require('../validators/EntityValidators').KnowledgeValidator)();
 const decisionValidator = new DecisionValidator();
 const graphValidator = new DecisionGraphValidator();
 const targetValidator = new TargetIntentValidator();

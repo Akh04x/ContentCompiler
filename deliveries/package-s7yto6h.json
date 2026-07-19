@@ -1,0 +1,147 @@
+{
+  "id": {
+    "value": "package-s7yto6h"
+  },
+  "version": {
+    "currentVersion": "1.3.0",
+    "versionIdentifier": "v1.3",
+    "metadata": {}
+  },
+  "trace": {
+    "executionId": "test-exec-1",
+    "origin": "OutputService.package",
+    "correlationId": "test-exec-1",
+    "timestamp": 1784497180316
+  },
+  "createdAt": 1784497180315,
+  "updatedAt": 1784497180316,
+  "structure": {
+    "id": {
+      "value": "structure-tf1x9gq"
+    },
+    "version": {
+      "currentVersion": "1.0.0",
+      "versionIdentifier": "v1",
+      "metadata": {}
+    },
+    "trace": {
+      "executionId": "test-exec-1",
+      "origin": "CompilationService.compile",
+      "correlationId": "test-exec-1",
+      "timestamp": 1784497180315
+    },
+    "createdAt": 1784497180315,
+    "updatedAt": 1784497180315,
+    "targetIntentId": {
+      "value": "target-zbvcr1f"
+    },
+    "componentIds": [
+      {
+        "value": "component-l55z15j"
+      },
+      {
+        "value": "component-vasu7u6"
+      },
+      {
+        "value": "component-46zcczm"
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": {
+        "value": "comp-goal"
+      },
+      "type": "Goal",
+      "content": "{}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784497180315,
+      "updatedAt": 1784497180315
+    },
+    {
+      "id": {
+        "value": "comp-fmt"
+      },
+      "type": "Format",
+      "content": "{}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784497180315,
+      "updatedAt": 1784497180315
+    },
+    {
+      "id": {
+        "value": "comp-con"
+      },
+      "type": "Constraints",
+      "content": "{}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784497180315,
+      "updatedAt": 1784497180315
+    },
+    {
+      "id": {
+        "value": "component-l55z15j"
+      },
+      "type": "Section",
+      "content": "{}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784497180315,
+      "updatedAt": 1784497180315
+    },
+    {
+      "id": {
+        "value": "component-vasu7u6"
+      },
+      "type": "Section",
+      "content": "{}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784497180315,
+      "updatedAt": 1784497180315
+    },
+    {
+      "id": {
+        "value": "component-46zcczm"
+      },
+      "type": "Section",
+      "content": "{}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784497180315,
+      "updatedAt": 1784497180315
+    }
+  ],
+  "status": {
+    "status": "Approved"
+  },
+  "approvedBy": "mock",
+  "approvedAt": 1784497180316
+}

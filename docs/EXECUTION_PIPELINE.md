@@ -29,7 +29,8 @@ The Runtime Execution Pipeline governs the end-to-end traversal of an intent thr
 - **Outputs:** Target Intent (Entity).
 - **Validation:** Target Intent passes `TargetIntentValidator`.
 - **Failure Conditions:** Impossible constraints (e.g., budget exceeds capacity).
-- **Traceability Requirements:** Target Intent links back to the Decision Graph.
+- **Human Approval Points:** MANDATORY. The pipeline YIELDS here. A human must provide `HumanApproval` to authorize the constrained TargetIntent before it proceeds to Compilation. This is a separate approval from the Decision layer — here the human approves the specific realization plan (goals, constraints, format), not the strategic direction.
+- **Traceability Requirements:** Target Intent links back to the Decision Graph. `HumanApproval` ID bound to the TargetIntent.
 
 ## 5. Compilation Layer
 - **Inputs:** Target Intent, Approved Content Decisions.

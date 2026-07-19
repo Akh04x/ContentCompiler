@@ -1,0 +1,11 @@
+{
+  "id": {
+    "value": "pkg-123"
+  },
+  "version": {
+    "currentVersion": "1.0.0"
+  },
+  "trace": {
+    "executionId": "exec-1"
+  }
+}
