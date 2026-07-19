@@ -9,6 +9,8 @@ import { DecisionStatus, ApprovalStatus, PublicationStatus, DecisionVersion, Dec
 import { VersionMetadata, TraceRecord } from '../shared/Observability';
 import { ILLMProvider } from '../providers/ILLMProvider';
 import { DecisionGraphSchema } from '../providers/parsers/StructuredParser';
+import * as readline from 'readline/promises';
+import { stdin as processStdin, stdout as processStdout } from 'process';
 
 export class DecisionPipeline implements IDecisionLayer {
   constructor(
@@ -60,6 +62,25 @@ export class DecisionPipeline implements IDecisionLayer {
        [decision],
        new Map()
      );
+
+     console.log('\n=============================================');
+     console.log('            HUMAN APPROVAL REQUIRED          ');
+     console.log('=============================================');
+     console.log(`Decision Graph ID: ${decisionGraph.id.value}`);
+     console.log(`Generated Decisions: ${decisionGraph.decisions.length}`);
+     decisionGraph.decisions.forEach((d, i) => {
+         console.log(` - Decision ${i+1}: ID=${d.id.value}, Status=${d.status.status}`);
+     });
+     console.log('=============================================\n');
+
+     const rl = readline.createInterface({ input: processStdin, output: processStdout });
+     const answer = await rl.question('Approve? (y/n): ');
+     rl.close();
+
+     if (answer.trim().toLowerCase() !== 'y') {
+       return new Failure(new Error("Human approval rejected. Pipeline halted."));
+     }
+
      return new Success(decisionGraph);
   }
 

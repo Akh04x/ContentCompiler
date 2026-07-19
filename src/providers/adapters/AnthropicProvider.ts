@@ -84,7 +84,7 @@ export class AnthropicProvider implements ILLMProvider {
       });
 
       if (!response.ok) {
-        let errorBody = await response.text();
+        const errorBody = await response.text();
         throw new Error(`HTTP ${response.status}: ${errorBody}`);
       }
 

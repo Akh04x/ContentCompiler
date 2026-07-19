@@ -1,4 +1,14 @@
 import { PipelineApplicationService } from '../../src/services/PipelineApplicationService';
+
+jest.mock('readline/promises', () => {
+  return {
+    createInterface: jest.fn().mockReturnValue({
+      question: jest.fn().mockResolvedValue('y'),
+      close: jest.fn()
+    })
+  };
+});
+
 import { KnowledgePipeline } from '../../src/pipelines/KnowledgePipeline';
 import { MockProvider } from '../../src/providers/adapters/MockProvider';
 import { ReasoningPipeline } from '../../src/pipelines/ReasoningPipeline';
