@@ -41,7 +41,7 @@ Return valid JSON ONLY with the following exact keys:
      const version: VersionMetadata = { currentVersion: '1.0.0', versionIdentifier: 'v1', metadata: {} };
      const trace: TraceRecord = { executionId: context.executionId, origin: 'DecisionPipeline', correlationId: context.executionId, timestamp: Date.now() };
      
-     const mappedStatus = extracted.status === 'Approved' ? DecisionStatusEnum.Approved : DecisionStatusEnum.Draft;
+     const mappedStatus = DecisionStatusEnum.Draft;
      const originatingConclusion = new ConclusionId(extracted.conclusionsEmployed[0]);
 
      const decision = new Decision(
@@ -97,7 +97,34 @@ Return valid JSON ONLY with the following exact keys:
        return new Failure(new Error("Human approval rejected. Pipeline halted."));
      }
 
-     return new Success(decisionGraph);
+     const approval = new HumanApproval(
+       { value: 'approval-' + Date.now() },
+       { currentVersion: '1.0.0', versionIdentifier: 'v1', metadata: {} },
+       { executionId: context.executionId, origin: 'DecisionPipeline', correlationId: context.executionId, timestamp: Date.now() },
+       Date.now(),
+       Date.now(),
+       decision.id,
+       'cli-user'
+     );
+
+     const approveRes = await this.service.executeApprovalAndPublishFlow(decision, approval);
+     if (!approveRes.isSuccess) {
+       return new Failure(approveRes.error);
+     }
+
+     const approvedDecision = (approveRes as Success<Decision>).value;
+     
+     const approvedGraph = new DecisionGraph(
+       decisionGraph.id,
+       decisionGraph.version,
+       decisionGraph.trace,
+       decisionGraph.createdAt,
+       Date.now(),
+       [approvedDecision],
+       decisionGraph.parentChildMap
+     );
+
+     return new Success(approvedGraph);
   }
 
   public async executeFlow(draft: Decision, approval: HumanApproval): Promise<Result<Decision>> {
