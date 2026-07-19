@@ -28,7 +28,9 @@ describe('Knowledge Pipeline & Service', () => {
     const profileRepo = new MockProfileRepo();
     const factory = new KnowledgeFactory(clock);
     const profileFactory = new ContentProfileFactory(clock);
-    const service = new KnowledgeService(profileRepo, repo, profileFactory, factory);
+    const profileValidator = new (require('../../../src/validators/EntityValidators').ContentProfileValidator)();
+    const knowledgeValidator = new (require('../../../src/validators/EntityValidators').KnowledgeValidator)();
+    const service = new KnowledgeService(profileRepo, repo, profileFactory, factory, profileValidator, knowledgeValidator);
     const pipeline = new KnowledgePipeline(service, new (require('../../../src/providers/adapters/MockProvider').MockProvider)());
 
     const knowledge = factory.create('exec-1', 'origin-1', 'Fact', KnowledgeClassification.CORE, 0.9, []);

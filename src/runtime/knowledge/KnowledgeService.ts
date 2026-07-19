@@ -10,7 +10,9 @@ export class KnowledgeService {
     private readonly profileRepo: IContentProfileRepository,
     private readonly knowledgeRepo: IKnowledgeRepository,
     private readonly profileFactory: ContentProfileFactory,
-    private readonly knowledgeFactory: KnowledgeFactory
+    private readonly knowledgeFactory: KnowledgeFactory,
+    private readonly profileValidator: ContentProfileValidator,
+    private readonly knowledgeValidator: KnowledgeValidator
   ) {}
 
   public async saveProfile(profile: ContentProfile): Promise<Result<ContentProfile>> {
@@ -18,8 +20,7 @@ export class KnowledgeService {
     // Validation -> Repository -> Version Update -> Trace Update -> Output
 
     // 1. Validation
-    const validator = new ContentProfileValidator();
-    const validationRes = validator.validate(profile);
+    const validationRes = this.profileValidator.validate(profile);
     if (!validationRes.isValid) {
       return new Failure(new ValidationError(`Profile invalid: ${validationRes.errors.join(', ')}`));
     }
@@ -39,8 +40,7 @@ export class KnowledgeService {
 
   public async saveKnowledge(knowledge: Knowledge): Promise<Result<Knowledge>> {
     // 1. Validation
-    const validator = new KnowledgeValidator();
-    const validationRes = validator.validate(knowledge);
+    const validationRes = this.knowledgeValidator.validate(knowledge);
     if (!validationRes.isValid) {
       return new Failure(new ValidationError(`Knowledge invalid: ${validationRes.errors.join(', ')}`));
     }

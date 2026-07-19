@@ -114,6 +114,8 @@ const signalFactory = new PerformanceSignalFactory(clock);
 const obsFactory = new HistoricalObservationFactory(clock);
 
 const conclusionValidator = new CandidateConclusionValidator();
+const profileValidator = new ContentProfileValidator();
+const knowledgeValidator = new KnowledgeValidator();
 const decisionValidator = new DecisionValidator();
 const graphValidator = new DecisionGraphValidator();
 const targetValidator = new TargetIntentValidator();
@@ -126,7 +128,7 @@ const signalValidator = new PerformanceSignalValidator();
 const obsValidator = new HistoricalObservationValidator();
 const deliveryValidator = new DeliveryArtifactValidator();
 
-const knowledgeService = new KnowledgeService(profileRepo, knowledgeRepo, profileFactory, knowledgeFactory);
+const knowledgeService = new KnowledgeService(profileRepo, knowledgeRepo, profileFactory, knowledgeFactory, profileValidator, knowledgeValidator);
 const reasoningService = new ReasoningService(conclusionFactory, conclusionRepo, conclusionValidator);
 const decisionService = new DecisionService(decisionFactory, decisionFactory as any, decisionRepo, graphRepo, decisionValidator, graphValidator, conclusionValidator, clock);
 const targetService = new TargetService(targetFactory, goalFactory, targetRepo, goalRepo, targetValidator, goalValidator, clock);

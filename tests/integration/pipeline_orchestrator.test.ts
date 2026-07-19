@@ -100,7 +100,9 @@ describe('Pipeline Orchestrator Integration Test', () => {
     const deliveryArtifactValidator = new DeliveryArtifactValidator();
 
     // 3. Instantiate Services
-    const knowledgeService = new KnowledgeService(mockRepo, mockRepo, profileFactory, knowledgeFactory);
+    const profileValidator = new (require('../../src/validators/EntityValidators').ContentProfileValidator)();
+    const knowledgeValidator = new (require('../../src/validators/EntityValidators').KnowledgeValidator)();
+    const knowledgeService = new KnowledgeService(mockRepo, mockRepo, profileFactory, knowledgeFactory, profileValidator, knowledgeValidator);
     const reasoningService = new ReasoningService(conclusionFactory, mockRepo, conclusionValidator);
             const decisionService = new DecisionService(
       decisionFactory,
