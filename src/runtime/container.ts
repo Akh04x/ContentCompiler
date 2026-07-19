@@ -223,9 +223,9 @@ export function buildApplication(config: ProviderConfiguration): PipelineApplica
       return res;
     }
 
-    async evaluate(ctx: RuntimeContext, artifact: any) {
+    async evaluate(ctx: RuntimeContext, triggerInput: string, decisionGraph: any, contentPackage: any, artifact: any) {
       const start = Date.now();
-      const res = await evidencePipeline.evaluate(ctx, artifact);
+      const res = await evidencePipeline.evaluate(ctx, triggerInput, decisionGraph, contentPackage, artifact);
       const ms = Date.now() - start;
       if (!res.isFailure) ctx.logger.info(`Evidence ✓ [${ms}ms] [Tokens: N/A]`);
       return res;

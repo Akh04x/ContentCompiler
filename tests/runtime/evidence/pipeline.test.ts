@@ -45,6 +45,31 @@ describe('Evidence pipeline', () => {
     expect(repos.evidence.saved).toHaveLength(1);
   });
 
+  it('evaluates and writes trace file to disk', async () => {
+    const { repos, service: runtime } = service();
+    const fs = require('fs/promises');
+    jest.spyOn(fs, 'mkdir').mockResolvedValue(undefined);
+    jest.spyOn(fs, 'writeFile').mockResolvedValue(undefined);
+
+    const pipeline = new EvidencePipeline(runtime, new (require('../../../src/providers/adapters/MockProvider').MockProvider)());
+    
+    const context = { executionId: 'test-exec-evidence', mode: 'test' } as any;
+    const triggerInput = 'test-input';
+    const decisionGraph = { id: { value: 'dec-1' } } as any;
+    const contentPackage = { id: { value: 'pkg-1' } } as any;
+    const deliveryArt = artifact();
+    
+    const result = await pipeline.evaluate(context, triggerInput, decisionGraph, contentPackage, deliveryArt);
+    expect(result.isSuccess).toBe(true);
+    
+    expect(fs.mkdir).toHaveBeenCalled();
+    expect(fs.writeFile).toHaveBeenCalled();
+    const writtenData = JSON.parse((fs.writeFile as jest.Mock).mock.calls[0][1]);
+    expect(writtenData.executionId).toBe('test-exec-evidence');
+    expect(writtenData.input).toBe('test-input');
+    expect(writtenData.approvedDecisionId).toBe('dec-1');
+  });
+
   it('rejects evidence capture with no observations', async () => {
     const { service: runtime } = service();
     const result = await runtime.capture(artifact(), [], []);

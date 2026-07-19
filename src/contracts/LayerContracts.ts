@@ -37,5 +37,11 @@ export interface IDeliveryLayer {
 }
 
 export interface IEvidenceLayer {
-  evaluate(context: RuntimeContext, deliveryReceipt: DeliveryArtifact): Promise<Result<Evidence>>;
+  evaluate(
+    context: RuntimeContext,
+    triggerInput: string,
+    decisionGraph: DecisionGraph,
+    contentPackage: ContentPackage,
+    deliveryReceipt: DeliveryArtifact
+  ): Promise<Result<Evidence>>;
 }

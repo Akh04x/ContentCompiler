@@ -24,7 +24,7 @@ describe('DeliveryPipeline', () => {
       deliverPackage: jest.fn().mockResolvedValue(new Success({ id: { value: 'art-1' } }))
     };
     pipeline = new DeliveryPipeline(mockService as any);
-    context = { executionId: 'exec-1', mode: 'test', logger: { info: jest.fn(), error: jest.fn(), warn: jest.fn() } };
+    context = { executionId: 'exec-1', mode: 'mock', logger: { info: jest.fn(), error: jest.fn(), warn: jest.fn() } };
     mockPackage = {
       id: new ContentPackageId('pkg-123'),
       version: { currentVersion: '1.0.0' },
