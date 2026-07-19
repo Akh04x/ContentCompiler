@@ -15,18 +15,20 @@ All connections directly to generative services exist in `src/providers` and use
 ### Prompts Module
 Hardcoded strings are eliminated securely via the `PromptModule`. Native interpolation replaces versioned payload instances safely. See [Prompts Docs](docs/prompts.md).
 
-## Getting Started
+## Quick Start
 
-1. Set up the valid node configurations.
-2. Initialize `.env` from `.env.example` mapping out variables properly. Check [Configurations](docs/configuration.md).
-3. Install missing configurations natively `npm install`.
+1. Initialize `.env` from `.env.example` mapping out variables properly. Check [Configurations](docs/configuration.md).
+2. Install dependencies, run tests, and build the project:
 
 ```bash
-# Typecheck
-npm run build
+# Install configurations natively
+npm install
 
 # Run unit tests natively
 npm test
+
+# Typecheck and build
+npm run build
 
 # Full orchestrated execution natively
 npm start
