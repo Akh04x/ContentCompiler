@@ -20,7 +20,7 @@ The structure mimics `.env.example`. Make sure to copy `.env.example` to `.env` 
 
 ## Validation Guardrails
 The start-up process parses variables deeply utilizing a strictly-typed `Zod` validation definition structure.
-- **Provider Support**: Enforces known enums (`OPENAI`, `ANTHROPIC`, `GEMINI`, `MOCK`).
+- **Provider Support**: Enforces known values (`openai`, `anthropic`, `gemini`, `mock`). **Important**: There is no silent fallback. If `PROVIDER` is empty or invalid, the system will intentionally crash fast with an explicit error to prevent accidental production deployments with mock data.
 - **Keys**: Ensures matching keys explicitly for configured Providers, rejecting silent fallbacks.
 - **Boundaries**: Ensures integers and boundaries explicitly (e.g. `TEMPERATURE` ranges strictly between `0` and `2`).
 

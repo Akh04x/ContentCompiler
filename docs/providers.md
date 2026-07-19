@@ -11,7 +11,7 @@ The ILLMProvider abstraction isolates generation and structured parsing logic fr
 - **OpenAI** (via `openai`)
 - **Anthropic** (via `anthropic`)
 - **Gemini** (via `gemini`)
-- **Mock** (via `MockProvider` for tests/local)
+- **Mock** (via `mock`). **Important**: Must be explicitly specified in `.env` (e.g. `PROVIDER=mock`). The system will NOT fallback to this provider silently if the `PROVIDER` variable is missing or invalid.
 
 ## Config
 Configure using local environment properties inside `.env`. Check `docs/configuration.md` for specific examples.
