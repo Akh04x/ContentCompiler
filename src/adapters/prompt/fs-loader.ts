@@ -33,7 +33,7 @@ export class FileSystemPromptLoader {
       const validated = PromptTemplateSchema.parse(parsed) as PromptTemplate;
       this.registry.registerTemplate(validated);
     } catch (err: unknown) {
-      throw new Error(`Failed to load prompt template from ${filePath}: ${err instanceof Error ? err.message : String(err)}`);
+      throw new Error(`Failed to load prompt template from ${filePath}: ${err instanceof Error ? err.message : String(err)}`, { cause: err });
     }
   }
 }

@@ -15,7 +15,7 @@ export class PromptRegistry {
         template = fs.readFileSync(filePath, 'utf-8');
         this.templates.set(templateName, template);
       } catch (err: any) {
-        throw new Error(`Failed to load prompt template ${templateName}: ${err.message}`);
+        throw new Error(`Failed to load prompt template ${templateName}: ${err.message}`, { cause: err });
       }
     }
 

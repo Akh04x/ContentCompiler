@@ -40,7 +40,7 @@ export class ConfigLoader {
     const rawProviderStr = process.env.PROVIDER || 'MOCK';
     const providerStr = rawProviderStr.toUpperCase();
     
-    let providerRaw: any = providerStr;
+    const providerRaw: any = providerStr;
 
     const apiKey = process.env[`${providerStr}_API_KEY`] || process.env.API_KEY || '';
 
@@ -71,7 +71,7 @@ export class ConfigLoader {
         
         console.error('\x1b[31m%s\x1b[0m', `\n[Configuration Error] Environment configuration is invalid:\n${errorMessages}\n`);
         console.error('\x1b[33m%s\x1b[0m', `Please check your .env file or environment variables. You can copy .env.example as a starting point.\n`);
-        throw new Error('Startup validation failed due to invalid configuration.');
+        throw new Error('Startup validation failed due to invalid configuration.', { cause: error });
       }
       throw error;
     }
