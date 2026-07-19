@@ -18,8 +18,9 @@ export class ProviderFactory {
       case ProviderType.GEMINI:
         return new GeminiProvider(config, this.logger);
       case ProviderType.MOCK:
-      default:
         return new MockProvider();
+      default:
+        throw new Error(`Unsupported or missing PROVIDER configuration: ${config.provider}`);
     }
   }
 }
