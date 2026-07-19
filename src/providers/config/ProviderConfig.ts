@@ -37,8 +37,15 @@ const ProviderConfigSchema = z.object({
 
 export class ConfigLoader {
   static loadFromEnv(): ProviderConfiguration {
-    const rawProviderStr = process.env.PROVIDER || 'MOCK';
+    const rawProviderStr = process.env.PROVIDER;
+    if (!rawProviderStr || rawProviderStr.trim() === '') {
+      throw new Error('PROVIDER environment variable is required. Allowed values: openai, anthropic, gemini, mock.');
+    }
+    
     const providerStr = rawProviderStr.toUpperCase();
+    if (!Object.values(ProviderType).includes(providerStr as ProviderType)) {
+      throw new Error(`Invalid PROVIDER environment variable: '${rawProviderStr}'. Allowed values: openai, anthropic, gemini, mock.`);
+    }
     
     const providerRaw: any = providerStr;
 

@@ -13,14 +13,14 @@ describe('ConfigLoader', () => {
     process.env = originalEnv;
   });
 
-  it('loads default MOCK configurations when empty', () => {
+  it('throws helpful error when provider is missing or empty', () => {
     delete process.env.PROVIDER;
     delete process.env.MODEL;
     delete process.env.OPENAI_API_KEY;
 
-    const config = ConfigLoader.loadFromEnv();
-    expect(config.provider).toBe(ProviderType.MOCK);
-    expect(config.model).toBe('mock-model');
+    expect(() => {
+      ConfigLoader.loadFromEnv();
+    }).toThrow('PROVIDER environment variable is required. Allowed values: openai, anthropic, gemini, mock.');
   });
 
   it('throws helpful error when provider requires missing api key', () => {
@@ -46,18 +46,9 @@ describe('ConfigLoader', () => {
   it('throws helpful error for invalid provider', () => {
     process.env.PROVIDER = 'cloudflare-ai'; // not supported
 
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
-    
     expect(() => {
       ConfigLoader.loadFromEnv();
-    }).toThrow('Startup validation failed due to invalid configuration.');
-
-    expect(consoleSpy).toHaveBeenCalledWith(
-        expect.anything(),
-        expect.stringContaining('Invalid option')
-    );
-
-    consoleSpy.mockRestore();
+    }).toThrow("Invalid PROVIDER environment variable: 'cloudflare-ai'. Allowed values: openai, anthropic, gemini, mock.");
   });
 
   it('binds configurations successfully when valid', () => {
