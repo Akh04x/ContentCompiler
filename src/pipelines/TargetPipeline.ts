@@ -21,29 +21,36 @@ export class TargetPipeline implements ITargetLayer {
     if (!provRes.isSuccess) return new Failure(provRes.error);
     const extracted = (provRes as Success<any>).value;
 
-    // Using dummy inputs for service as a mock proxy
-    const mockedFlow = await this.service.define(
-        { id: { value: 'dummy' }, trace: { executionId: 'ctx' }, status: { status: 'Approved' } } as any,
-        [{ id: {value:'g-1'}, version: {currentVersion:'1'}, trace: {executionId:'1'}, createdAt: Date.now(), updatedAt: Date.now(), objective: 'mock goal', priority: 'High' } as any],
-        new TargetFormat('SingleAsset' as any)
-    );
-    if (!mockedFlow.isSuccess) return new Failure(mockedFlow.error);
+    const firstDecision = decisionGraph.decisions[0];
+    if (!firstDecision) {
+      return new Failure(new Error('DecisionGraph contains no decisions'));
+    }
 
-    const intentDb = (mockedFlow as Success<TargetIntent>).value;
+    const titleGoal = this.service.createGoal(context.executionId, extracted.title || 'Generated Target', 'High' as any);
+    
+    let formatStr = 'SingleAsset';
+    if (extracted.formats && extracted.formats.length > 0) {
+      formatStr = extracted.formats[0];
+    }
 
-    // Apply values mapped from DTO
-    const intent = new TargetIntent(
-       new IntentId('intent-' + Date.now()),
-       intentDb.version,
-       intentDb.trace,
-       Date.now(), Date.now(),
-       [], // goals
-       new TargetFormat('SingleAsset' as any),
-       new TargetIntentStatus('Defined' as any),
-       null, [], extracted.title, null, null
+    const definedFlow = this.service.define(
+        firstDecision,
+        [titleGoal],
+        new TargetFormat(formatStr as any)
     );
 
-    return new Success(intent);
+    if (!definedFlow.isSuccess) return new Failure(definedFlow.error);
+    const definedIntent = (definedFlow as Success<TargetIntent>).value;
+
+    const { TargetConstraints } = require('../value_objects/TargetVOs');
+    const { HumanApproval } = require('../domain/GovernanceDomain');
+    
+    const constraints = new TargetConstraints('DefaultPlatform', 1, 7, 'Automated constraints');
+    const version = { currentVersion: '1.0.0', versionIdentifier: 'v1', metadata: {} };
+    const trace = { executionId: context.executionId, origin: 'TargetPipeline', correlationId: context.executionId, timestamp: Date.now() };
+    const approval = new HumanApproval(new IntentId('approval-' + Date.now()), version, trace, Date.now(), Date.now(), definedIntent.id, 'system-auto-approve');
+    
+    return this.service.executeApprovalFlow(definedIntent, constraints, approval);
   }
 
   // backwards compat for tests

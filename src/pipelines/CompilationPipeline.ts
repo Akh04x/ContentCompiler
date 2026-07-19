@@ -19,16 +19,7 @@ export class CompilationPipeline implements ICompilationLayer {
     if (!provRes.isSuccess) return new Failure(provRes.error);
     const extracted = (provRes as Success<any>).value;
 
-    const os = new OutputStructure(
-       new OutputStructureId('mock-os-' + Date.now()),
-       {currentVersion: '1', versionIdentifier: 'v1', metadata: {}},
-       {executionId: context.executionId, origin: 'comp', correlationId: context.executionId, timestamp: Date.now()},
-       Date.now(), Date.now(),
-       targetIntent.id,
-       [new ComponentId('c-1'), new ComponentId('c-2')]
-    );
-
-    return new Success(os);
+    return this.service.compile(targetIntent);
   }
 
   // Backwards compat for tests
