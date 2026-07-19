@@ -18,7 +18,13 @@ export class TargetPipeline implements ITargetLayer {
   ) {}
 
   public async target(context: RuntimeContext, decisionGraph: DecisionGraph): Promise<Result<TargetIntent>> {
-    const prompt = `Formulate target intents for decision graph ID: ${decisionGraph.id.value}`;
+    const prompt = `Formulate target intents for decision graph ID: ${decisionGraph.id.value}.
+Return valid JSON ONLY with the following exact keys. For 'formats', you MUST choose exactly one from this list: ["SingleAsset", "Series", "Campaign", "MultiPlatformInitiative"].
+{
+  "title": "string",
+  "formats": ["SingleAsset"],
+  "channels": ["string"]
+}`;
     const provRes = await this.provider.generateStructured(prompt, (data) => TargetIntentSchema.parse(data));
     if (!provRes.isSuccess) return new Failure(provRes.error);
     const extracted = (provRes as Success<any>).value;

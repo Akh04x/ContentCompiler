@@ -22,7 +22,13 @@ export class DecisionPipeline implements IDecisionLayer {
        return new Failure(new Error("Reasoning layer failed to produce conclusions"));
      }
      
-     const prompt = `Formulate a decision graph from these conclusions: ${conclusions.map(c => c.justification).join('; ')}`;
+     const prompt = `Formulate a strategic decision graph based on: ${conclusions.map(c => c.id.value).join(', ')}.
+Return valid JSON ONLY with the following exact keys:
+{
+  "decisionId": "string",
+  "status": "string",
+  "conclusionsEmployed": ["string"]
+}`;
      const provRes = await this.provider.generateStructured(prompt, (data) => DecisionGraphSchema.parse(data));
      if (!provRes.isSuccess) return new Failure(provRes.error);
      const extracted = (provRes as Success<any>).value;

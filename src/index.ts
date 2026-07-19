@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { ConfigLoader } from './providers/config/ProviderConfig';
 import { buildApplication } from './runtime/container';
 import { RuntimeContext } from './shared/Contexts';

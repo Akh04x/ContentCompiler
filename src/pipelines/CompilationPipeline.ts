@@ -14,7 +14,13 @@ export class CompilationPipeline implements ICompilationLayer {
   ) {}
 
   public async compile(context: RuntimeContext, targetIntent: TargetIntent): Promise<Result<OutputStructure>> {
-    const prompt = `Compile into output structure for target: ${targetIntent.id.value}`;
+    const prompt = `Compile content for target intent ${targetIntent.id.value}.
+Return valid JSON ONLY with the following exact keys:
+{
+  "content": "string",
+  "format": "string",
+  "metadata": {}
+}`;
     const provRes = await this.provider.generateStructured(prompt, (data) => CompilationStructureSchema.parse(data));
     if (!provRes.isSuccess) return new Failure(provRes.error);
     const extracted = (provRes as Success<any>).value;

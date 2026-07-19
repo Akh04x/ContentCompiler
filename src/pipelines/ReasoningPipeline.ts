@@ -17,7 +17,14 @@ export class ReasoningPipeline implements IReasoningLayer {
 
   public async reason(context: RuntimeContext, knowledgeList: Knowledge[]): Promise<Result<CandidateConclusion[]>> {
     const facts = knowledgeList.map(k => k.fact).join(', ');
-    const prompt = `Formulate a conclusion based on these facts: ${facts}`;
+    const prompt = `Formulate a conclusion based on these facts: ${facts}.
+Return valid JSON ONLY with the following exact keys:
+{
+  "id": "string",
+  "justification": "string",
+  "confidence": 0.9,
+  "factsUsed": ["string"]
+}`;
     
     const provRes = await this.provider.generateStructured(prompt, (data) => CandidateConclusionSchema.parse(data));
     if (!provRes.isSuccess) return new Failure(provRes.error);

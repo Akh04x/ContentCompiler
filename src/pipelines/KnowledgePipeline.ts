@@ -37,7 +37,14 @@ export class KnowledgePipeline implements IKnowledgeLayer {
   }
 
   public async getKnowledge(context: RuntimeContext, profileId: string): Promise<Result<Knowledge[]>> {
-    const prompt = `Extract a primary fact about: ${profileId}`;
+    const prompt = `Extract a primary fact about: ${profileId}. 
+Return valid JSON ONLY with the following exact keys:
+{
+  "fact": "string",
+  "confidence": 0.9,
+  "sourceType": "string",
+  "sourceRef": "string"
+}`;
     const result = await this.provider.generateStructured(prompt, (data) => KnowledgeFactSchema.parse(data));
     if (!result.isSuccess) return new Failure(result.error);
 
