@@ -1,4 +1,8 @@
 /dist/
-/.claude/
+/coverage/
 /node_modules/
+/.claude/
 .DS_Store
+.env
+*.log
+*.tmp
