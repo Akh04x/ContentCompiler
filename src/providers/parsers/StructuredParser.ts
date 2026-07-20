@@ -11,19 +11,19 @@ export const CandidateConclusionSchema = z.object({
   id: z.string(),
   justification: z.string(),
   confidence: z.number(),
-  factsUsed: z.array(z.string()),
+  factsUsed: z.union([z.string(), z.array(z.string())]).transform(v => Array.isArray(v) ? v : [v]),
 });
 
 export const DecisionGraphSchema = z.object({
   decisionId: z.string(),
   status: z.string(),
-  conclusionsEmployed: z.array(z.string()),
+  conclusionsEmployed: z.union([z.string(), z.array(z.string())]).transform(v => Array.isArray(v) ? v : [v]),
 });
 
 export const TargetIntentSchema = z.object({
   title: z.string(),
-  formats: z.array(z.string()),
-  channels: z.array(z.string()),
+  formats: z.union([z.string(), z.array(z.string())]).transform(v => Array.isArray(v) ? v : [v]),
+  channels: z.union([z.string(), z.array(z.string())]).transform(v => Array.isArray(v) ? v : [v]),
 });
 
 export const CompilationStructureSchema = z.object({

@@ -1,0 +1,147 @@
+{
+  "id": {
+    "value": "package-odru5l1"
+  },
+  "version": {
+    "currentVersion": "1.3.0",
+    "versionIdentifier": "v1.3",
+    "metadata": {}
+  },
+  "trace": {
+    "executionId": "bootstrap-1784504630692",
+    "origin": "OutputService.package",
+    "correlationId": "bootstrap-1784504630692",
+    "timestamp": 1784504655922
+  },
+  "createdAt": 1784504655921,
+  "updatedAt": 1784504655922,
+  "structure": {
+    "id": {
+      "value": "structure-hdpc5x4"
+    },
+    "version": {
+      "currentVersion": "1.0.0",
+      "versionIdentifier": "v1",
+      "metadata": {}
+    },
+    "trace": {
+      "executionId": "bootstrap-1784504630692",
+      "origin": "CompilationService.compile",
+      "correlationId": "bootstrap-1784504630692",
+      "timestamp": 1784504655025
+    },
+    "createdAt": 1784504655025,
+    "updatedAt": 1784504655025,
+    "targetIntentId": {
+      "value": "target-wa7xpa6"
+    },
+    "componentIds": [
+      {
+        "value": "component-u3cnuy9"
+      },
+      {
+        "value": "component-3psu0hf"
+      },
+      {
+        "value": "component-nhuualk"
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": {
+        "value": "comp-goal"
+      },
+      "type": "Goal",
+      "content": "Goal metadata placeholder",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784504655920,
+      "updatedAt": 1784504655920
+    },
+    {
+      "id": {
+        "value": "comp-fmt"
+      },
+      "type": "Format",
+      "content": "Format metadata placeholder",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784504655920,
+      "updatedAt": 1784504655920
+    },
+    {
+      "id": {
+        "value": "comp-con"
+      },
+      "type": "Constraints",
+      "content": "Constraints placeholder",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784504655920,
+      "updatedAt": 1784504655920
+    },
+    {
+      "id": {
+        "value": "component-u3cnuy9"
+      },
+      "type": "Section",
+      "content": "SingleAsset {\n  targeting: DefaultPlatform\n  goals: [\"Commercial Espresso Machine Purpose\"]\n}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784504655920,
+      "updatedAt": 1784504655920
+    },
+    {
+      "id": {
+        "value": "component-3psu0hf"
+      },
+      "type": "Section",
+      "content": "SingleAsset {\n  targeting: DefaultPlatform\n  goals: [\"Commercial Espresso Machine Purpose\"]\n}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784504655920,
+      "updatedAt": 1784504655920
+    },
+    {
+      "id": {
+        "value": "component-nhuualk"
+      },
+      "type": "Section",
+      "content": "SingleAsset {\n  targeting: DefaultPlatform\n  goals: [\"Commercial Espresso Machine Purpose\"]\n}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784504655920,
+      "updatedAt": 1784504655920
+    }
+  ],
+  "status": {
+    "status": "Approved"
+  },
+  "approvedBy": "system-auto-package",
+  "approvedAt": 1784504655922
+}

@@ -1,0 +1,147 @@
+{
+  "id": {
+    "value": "package-bfoclcu"
+  },
+  "version": {
+    "currentVersion": "1.3.0",
+    "versionIdentifier": "v1.3",
+    "metadata": {}
+  },
+  "trace": {
+    "executionId": "bootstrap-1784504547128",
+    "origin": "OutputService.package",
+    "correlationId": "bootstrap-1784504547128",
+    "timestamp": 1784504557542
+  },
+  "createdAt": 1784504557542,
+  "updatedAt": 1784504557542,
+  "structure": {
+    "id": {
+      "value": "structure-x3ha2cm"
+    },
+    "version": {
+      "currentVersion": "1.0.0",
+      "versionIdentifier": "v1",
+      "metadata": {}
+    },
+    "trace": {
+      "executionId": "bootstrap-1784504547128",
+      "origin": "CompilationService.compile",
+      "correlationId": "bootstrap-1784504547128",
+      "timestamp": 1784504555251
+    },
+    "createdAt": 1784504555251,
+    "updatedAt": 1784504555251,
+    "targetIntentId": {
+      "value": "target-5s9l1d7"
+    },
+    "componentIds": [
+      {
+        "value": "component-wfhrmnr"
+      },
+      {
+        "value": "component-9gyu41f"
+      },
+      {
+        "value": "component-ki5wfot"
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": {
+        "value": "comp-goal"
+      },
+      "type": "Goal",
+      "content": "Goal metadata placeholder",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784504557542,
+      "updatedAt": 1784504557542
+    },
+    {
+      "id": {
+        "value": "comp-fmt"
+      },
+      "type": "Format",
+      "content": "Format metadata placeholder",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784504557542,
+      "updatedAt": 1784504557542
+    },
+    {
+      "id": {
+        "value": "comp-con"
+      },
+      "type": "Constraints",
+      "content": "Constraints placeholder",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784504557542,
+      "updatedAt": 1784504557542
+    },
+    {
+      "id": {
+        "value": "component-wfhrmnr"
+      },
+      "type": "Section",
+      "content": "The optimal commercial espresso machine for high-volume, professional environments is the La Marzocco Linea PB. It delivers exceptional thermal stability, dual boiler precision, programmable pre-infusion, and robust build quality—ensuring consistent extraction, operator efficiency, and long-term reliability. Its modular design supports seamless serviceability, while its intuitive interface and configurable workflow integration align with café operational standards. For businesses prioritizing performance, durability, and brand credibility at scale, the Linea PB represents the definitive decision.",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784504557542,
+      "updatedAt": 1784504557542
+    },
+    {
+      "id": {
+        "value": "component-9gyu41f"
+      },
+      "type": "Section",
+      "content": "The optimal commercial espresso machine for high-volume, professional environments is the La Marzocco Linea PB. It delivers exceptional thermal stability, dual boiler precision, programmable pre-infusion, and robust build quality—ensuring consistent extraction, operator efficiency, and long-term reliability. Its modular design supports seamless serviceability, while its intuitive interface and configurable workflow integration align with café operational standards. For businesses prioritizing performance, durability, and brand credibility at scale, the Linea PB represents the definitive decision.",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784504557542,
+      "updatedAt": 1784504557542
+    },
+    {
+      "id": {
+        "value": "component-ki5wfot"
+      },
+      "type": "Section",
+      "content": "The optimal commercial espresso machine for high-volume, professional environments is the La Marzocco Linea PB. It delivers exceptional thermal stability, dual boiler precision, programmable pre-infusion, and robust build quality—ensuring consistent extraction, operator efficiency, and long-term reliability. Its modular design supports seamless serviceability, while its intuitive interface and configurable workflow integration align with café operational standards. For businesses prioritizing performance, durability, and brand credibility at scale, the Linea PB represents the definitive decision.",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784504557542,
+      "updatedAt": 1784504557542
+    }
+  ],
+  "status": {
+    "status": "Approved"
+  },
+  "approvedBy": "system-auto-package",
+  "approvedAt": 1784504557542
+}

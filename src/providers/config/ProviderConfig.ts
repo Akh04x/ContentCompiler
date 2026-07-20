@@ -13,6 +13,7 @@ export interface ProviderConfiguration {
   temperature: number;
   maxTokens: number;
   apiKey?: string;
+  baseUrl?: string;
   timeoutMs: number;
   maxRetries: number;
 }
@@ -23,6 +24,7 @@ const ProviderConfigSchema = z.object({
   temperature: z.number().min(0).max(2, 'TEMPERATURE must be between 0 and 2'),
   maxTokens: z.number().int().positive('MAX_TOKENS must be a positive integer'),
   apiKey: z.string().optional(),
+  baseUrl: z.string().optional(),
   timeoutMs: z.number().int().positive('TIMEOUT_MS must be a positive integer'),
   maxRetries: z.number().int().min(0, 'MAX_RETRIES cannot be negative'),
 }).refine(data => {
@@ -57,6 +59,7 @@ export class ConfigLoader {
       temperature: parseFloat(process.env.TEMPERATURE || '0.7'),
       maxTokens: parseInt(process.env.MAX_TOKENS || '2000', 10),
       apiKey: apiKey,
+      baseUrl: process.env.OPENAI_BASE_URL || process.env.BASE_URL,
       timeoutMs: parseInt(process.env.TIMEOUT_MS || '30000', 10),
       maxRetries: parseInt(process.env.MAX_RETRIES || '3', 10),
     };

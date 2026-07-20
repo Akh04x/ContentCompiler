@@ -1,5 +1,5 @@
 import { Component, ContentPackage } from '../domain/CompilationDomain';
-import { OutputStructure } from '../domain/TargetDomain';
+import { TargetIntent, OutputStructure } from '../domain/TargetDomain';
 import { Result, Failure, Success } from '../shared/Result';
 import { OutputService } from '../runtime/output/OutputService';
 import { IOutputLayer } from '../contracts/LayerContracts';
@@ -14,21 +14,28 @@ export class OutputPipeline implements IOutputLayer {
     private readonly provider: ILLMProvider
   ) {}
 
-  public async package(context: RuntimeContext, outputStructure: OutputStructure): Promise<Result<ContentPackage>> {
-     const prompt = `Validate and prepare package for structure format: ${JSON.stringify(outputStructure)}`;
+  public async package(context: RuntimeContext, outputStructure: OutputStructure, targetIntent: TargetIntent): Promise<Result<ContentPackage>> {
+     const goalsStr = targetIntent.goals.map((g: any) => g.objective).join(', ');
+     const platform = targetIntent.constraints?.platform || 'Unknown platform';
+     const prompt = `Write the actual content for a ${targetIntent.format.format} targeting ${platform}.
+Goals: ${goalsStr}.
+Return ONLY the raw content text, without any introductory or explanatory text. Do not wrap in JSON.`;
+
      const provRes = await this.provider.generateText(prompt);
      if (!provRes.isSuccess) return new Failure(provRes.error);
 
+     const generatedText = (provRes as Success<string>).value;
+
      const components: Component[] = [
-       { id: new ComponentId('comp-goal'), type: 'Goal', content: '{}', trace: {executionId:'1'}, version:{currentVersion:'1'}, createdAt: Date.now(), updatedAt: Date.now() } as any,
-       { id: new ComponentId('comp-fmt'), type: 'Format', content: '{}', trace: {executionId:'1'}, version:{currentVersion:'1'}, createdAt: Date.now(), updatedAt: Date.now()  } as any,
-       { id: new ComponentId('comp-con'), type: 'Constraints', content: '{}', trace: {executionId:'1'}, version:{currentVersion:'1'}, createdAt: Date.now(), updatedAt: Date.now()  } as any,
+       { id: new ComponentId('comp-goal'), type: 'Goal', content: 'Goal metadata placeholder', trace: {executionId:'1'}, version:{currentVersion:'1'}, createdAt: Date.now(), updatedAt: Date.now() } as any,
+       { id: new ComponentId('comp-fmt'), type: 'Format', content: 'Format metadata placeholder', trace: {executionId:'1'}, version:{currentVersion:'1'}, createdAt: Date.now(), updatedAt: Date.now()  } as any,
+       { id: new ComponentId('comp-con'), type: 'Constraints', content: 'Constraints placeholder', trace: {executionId:'1'}, version:{currentVersion:'1'}, createdAt: Date.now(), updatedAt: Date.now()  } as any,
      ];
      // Add expected components
      if (outputStructure && outputStructure.componentIds) {
         outputStructure.componentIds.forEach((c: any) => {
            components.push({
-               id: c, type: 'Section', content: '{}', trace: {executionId:'1'}, version:{currentVersion:'1'}, createdAt: Date.now(), updatedAt: Date.now()
+               id: c, type: 'Section', content: generatedText, trace: {executionId:'1'}, version:{currentVersion:'1'}, createdAt: Date.now(), updatedAt: Date.now()
            } as any)
         })
      }

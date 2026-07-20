@@ -77,8 +77,11 @@ export class OpenAIProvider implements ILLMProvider {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), this.config.timeoutMs);
 
+    const baseUrl = this.config.baseUrl?.replace(/\/$/, '') || 'https://api.openai.com/v1';
+    const endpoint = `${baseUrl}/chat/completions`;
+
     try {
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

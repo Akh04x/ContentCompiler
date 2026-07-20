@@ -8,7 +8,8 @@
     "typecheck": "tsc --noEmit",
     "build": "tsc",
     "lint": "eslint \"src/**/*.ts\"",
-    "start": "node dist/src/index.js"
+    "start": "node dist/src/index.js",
+    "server": "node dist/src/server.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,8 @@
   "homepage": "https://github.com/Akh04x/ContentCompiler#readme",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
     "@types/node": "^26.1.1",
     "@typescript-eslint/eslint-plugin": "^8.64.0",
@@ -35,7 +38,9 @@
     "typescript-eslint": "^8.64.0"
   },
   "dependencies": {
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
+    "express": "^5.2.1",
     "ts-node": "^10.9.2",
     "zod": "^4.4.3"
   }

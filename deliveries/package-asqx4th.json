@@ -1,0 +1,147 @@
+{
+  "id": {
+    "value": "package-asqx4th"
+  },
+  "version": {
+    "currentVersion": "1.3.0",
+    "versionIdentifier": "v1.3",
+    "metadata": {}
+  },
+  "trace": {
+    "executionId": "bootstrap-1784502072244",
+    "origin": "OutputService.package",
+    "correlationId": "bootstrap-1784502072244",
+    "timestamp": 1784502072248
+  },
+  "createdAt": 1784502072248,
+  "updatedAt": 1784502072248,
+  "structure": {
+    "id": {
+      "value": "structure-ndhvsfz"
+    },
+    "version": {
+      "currentVersion": "1.0.0",
+      "versionIdentifier": "v1",
+      "metadata": {}
+    },
+    "trace": {
+      "executionId": "bootstrap-1784502072244",
+      "origin": "CompilationService.compile",
+      "correlationId": "bootstrap-1784502072244",
+      "timestamp": 1784502072248
+    },
+    "createdAt": 1784502072248,
+    "updatedAt": 1784502072248,
+    "targetIntentId": {
+      "value": "target-beven6v"
+    },
+    "componentIds": [
+      {
+        "value": "component-sd64pul"
+      },
+      {
+        "value": "component-zvvouxe"
+      },
+      {
+        "value": "component-lloowhc"
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": {
+        "value": "comp-goal"
+      },
+      "type": "Goal",
+      "content": "{}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784502072248,
+      "updatedAt": 1784502072248
+    },
+    {
+      "id": {
+        "value": "comp-fmt"
+      },
+      "type": "Format",
+      "content": "{}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784502072248,
+      "updatedAt": 1784502072248
+    },
+    {
+      "id": {
+        "value": "comp-con"
+      },
+      "type": "Constraints",
+      "content": "{}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784502072248,
+      "updatedAt": 1784502072248
+    },
+    {
+      "id": {
+        "value": "component-sd64pul"
+      },
+      "type": "Section",
+      "content": "{}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784502072248,
+      "updatedAt": 1784502072248
+    },
+    {
+      "id": {
+        "value": "component-zvvouxe"
+      },
+      "type": "Section",
+      "content": "{}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784502072248,
+      "updatedAt": 1784502072248
+    },
+    {
+      "id": {
+        "value": "component-lloowhc"
+      },
+      "type": "Section",
+      "content": "{}",
+      "trace": {
+        "executionId": "1"
+      },
+      "version": {
+        "currentVersion": "1"
+      },
+      "createdAt": 1784502072248,
+      "updatedAt": 1784502072248
+    }
+  ],
+  "status": {
+    "status": "Approved"
+  },
+  "approvedBy": "system-auto-package",
+  "approvedAt": 1784502072248
+}

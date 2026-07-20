@@ -209,9 +209,9 @@ export function buildApplication(config: ProviderConfiguration): PipelineApplica
       return res;
     }
 
-    async package(ctx: RuntimeContext, structure: any) {
+    async package(ctx: RuntimeContext, structure: any, intent: any) {
       const start = Date.now();
-      const res = await outputPipeline.package(ctx, structure);
+      const res = await outputPipeline.package(ctx, structure, intent);
       const ms = Date.now() - start;
       if (!res.isFailure) ctx.logger.info(`Output ✓ [${ms}ms] [Tokens: N/A]`);
       return res;

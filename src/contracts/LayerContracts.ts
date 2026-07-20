@@ -29,7 +29,7 @@ export interface ICompilationLayer {
 }
 
 export interface IOutputLayer {
-  package(context: RuntimeContext, outputStructure: OutputStructure): Promise<Result<ContentPackage>>;
+  package(context: RuntimeContext, outputStructure: OutputStructure, targetIntent: TargetIntent): Promise<Result<ContentPackage>>;
 }
 
 export interface IDeliveryLayer {

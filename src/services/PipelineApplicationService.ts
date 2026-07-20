@@ -40,10 +40,11 @@ export class PipelineApplicationService implements IPipelineApplicationService {
     const targetRes = await this.targetLayer.target(context, (decisionRes as Success<any>).value);
     if (!targetRes.isSuccess) return new Failure(targetRes.error);
 
-    const compilationRes = await this.compilationLayer.compile(context, (targetRes as Success<any>).value);
+    const targetValue = (targetRes as Success<any>).value;
+    const compilationRes = await this.compilationLayer.compile(context, targetValue);
     if (!compilationRes.isSuccess) return new Failure(compilationRes.error);
 
-    const outputRes = await this.outputLayer.package(context, (compilationRes as Success<any>).value);
+    const outputRes = await this.outputLayer.package(context, (compilationRes as Success<any>).value, targetValue);
     if (!outputRes.isSuccess) return new Failure(outputRes.error);
 
     const deliveryRes = await this.deliveryLayer.deliver(context, (outputRes as Success<any>).value);
